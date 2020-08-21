@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import {connect, Provider, useDispatch} from 'react-redux';
 import {StateType, UserType} from "./types/types";
-import {logInAction} from "./store/actions";
+import {logInAction, logOutAction} from "./store/actions";
 import {store} from "./store/store";
 
 const Container = styled.div`
@@ -10,10 +10,8 @@ background-color: blueviolet;
 min-height: 100vh;
 `
 
-function App({user}: { user: UserType }) {
+function App({user}: { user: any }) {
 
-    const logined = false
-    console.log(user, 'user body')
     const dispatch = useDispatch()
 
     return (
@@ -25,7 +23,15 @@ function App({user}: { user: UserType }) {
             >
                 Войти
             </button>
-            состояние - {user ? 'АВТОРИЗОВАН' : 'ВХОД'}
+            <button
+                onClick={() => {
+                    dispatch(logOutAction( ))
+                }}
+            >
+                Выйти
+            </button>
+            состояние - {user ? 'АВТОРИЗОВАН' : 'ВХОД '+ user}
+            { user && <img src={user.message} width={window.innerWidth} alt=""/>}
         </Container>
 
     );
