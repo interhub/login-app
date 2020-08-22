@@ -3,4 +3,5 @@ export default {
     REG: '/reg',
     CODE: '/code',
     PROFILE: '/profile',
+    START: '/'
 }
