@@ -1,3 +1,6 @@
+import {logInActionType, logOutActionType, setUserActionType} from "../store/actions";
+import {RouterState} from "connected-react-router";
+
 export type StateType<T> = {
     user: T extends UserType ? UserType : null,
     token: TokenType
@@ -10,5 +13,15 @@ export type UserType = {
     id: number
     token: TokenType
 }
+
+export type AllState={
+    router: RouterState
+    saga: StateType<UserType>
+}
+
+export type ActionType =
+    logInActionType |
+    setUserActionType |
+    logOutActionType
 
 export type Body = { login: string }

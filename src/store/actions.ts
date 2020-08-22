@@ -7,7 +7,7 @@ export const logInAction = (login: string): logInActionType => ({
     login
 })
 
-export type setUserActionType = { type: string, user: UserType }
+export type setUserActionType = { type: ACTION.SET_USER, user: UserType }
 export const setUserAction = (user: UserType): setUserActionType => ({
     type: ACTION.SET_USER,
     user
