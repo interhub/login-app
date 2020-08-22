@@ -2,12 +2,11 @@ import React from 'react';
 import styled from 'styled-components'
 import {connect, Provider, useDispatch} from 'react-redux';
 import {Redirect, Route, Switch} from "react-router-dom";
-import {AllState, StateType, UserType} from "./types/types";
+import {AllState} from "./types/types";
 import {logInAction, logOutAction} from "./store/actions";
 import {store} from "./store/store";
-import SCREEN from "./variable/SCREEN";
+import ROUTES from "./variable/ROUTES";
 import {ConnectedRouter} from 'connected-react-router'
-import {createBrowserHistory} from 'history'
 import HISTORY from "./variable/HISTORY";
 
 const Container = styled.div`
@@ -24,18 +23,18 @@ function App({user}: { user: any }) {
             <ConnectedRouter history={HISTORY}>
                 <Switch>
                     <Route exact path={'/'}>
-                        <Redirect to={SCREEN.LOG_IN}/>
+                        <Redirect to={ROUTES.LOG_IN}/>
                     </Route>
-                    <Route path={SCREEN.LOG_IN}>
+                    <Route path={ROUTES.LOG_IN}>
                         hello / LOGINN
                     </Route>
-                    <Route path={SCREEN.REG}>
+                    <Route path={ROUTES.REG}>
                         hello / REG
                     </Route>
-                    <Route path={SCREEN.CODE}>
+                    <Route path={ROUTES.CODE}>
                         hello / CODE
                     </Route>
-                    <Route path={SCREEN.PROFILE}>
+                    <Route path={ROUTES.PROFILE}>
                         hello / USERSS
                     </Route>
                 </Switch>

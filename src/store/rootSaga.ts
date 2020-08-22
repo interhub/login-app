@@ -10,9 +10,7 @@ const getString = (): Promise<string> => fetch('https://dog.ceo/api/breeds/image
 //2
 function* loadUserAndSet() {
     try{
-        console.log('setUser')
         const user: UserType = yield call(getString)
-        console.log(user,'NEW USER')
         yield put(setUserAction(user))
     }catch (e) {
         yield put(logOutAction())
