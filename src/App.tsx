@@ -37,6 +37,9 @@ function App({user}: { user: any }) {
                     <Route path={ROUTES.PROFILE}>
                         hello / USERSS
                     </Route>
+                    <Route path={'*'}>
+                        404 ERRR
+                    </Route>
                 </Switch>
             </ConnectedRouter>
             <button
