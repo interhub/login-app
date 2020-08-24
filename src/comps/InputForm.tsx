@@ -1,0 +1,53 @@
+import React, {useState} from "react";
+import styled from "styled-components";
+import COLOR from "../variable/COLOR";
+
+interface IErr {
+    err: string
+    empty?: boolean
+}
+
+const InputContainer = styled.div<IErr>`
+border-bottom:  ${({empty}) => empty ? 1 : 2}px solid ${({err}) => err.length > 0 ? COLOR.ERR : COLOR.GRAY};
+`
+
+const InputForm = styled.input`
+outline: none;
+border: none;
+font-size: 18px;
+width: 100%;
+margin-bottom: 12px;
+font-weight: 500;
+`
+
+const Label = styled.p<IErr>`
+color: ${({err}) => err.length > 0 ? COLOR.ERR : COLOR.GRAY};
+font-size: ${({empty}) => empty ? 18 : 14}px; 
+position: relative;
+top: ${({empty}) => empty ? 42 : 0}px; 
+transition: all 0.2s ease;
+pointer-events: none;
+`
+
+export default ({label = '', err = '', callback}: { label?: string, err: string, callback: (text: string) => void }) => {
+
+    const [empty, setEmpty] = useState<boolean>(true);
+
+    return <div>
+        <InputContainer empty={empty} err={err}>
+            <Label empty={empty} err={err}>
+                {label}
+            </Label>
+            <InputForm
+                onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    let val = e.target.value
+                    callback(val)
+                    setEmpty(val === '')
+                }}
+                autoFocus={true}/>
+        </InputContainer>
+        <Label err={err}>
+            {err}
+        </Label>
+    </div>
+}
