@@ -1,5 +1,6 @@
 import {logInActionType, logOutActionType, setUserActionType} from "../store/actions";
 import {RouterState} from "connected-react-router";
+import React from "react";
 
 export type StateType<T> = {
     user: T extends UserType ? UserType : null,
@@ -25,3 +26,5 @@ export type ActionType =
     logOutActionType
 
 export type Body = { login: string }
+
+export type onInputType=React.ChangeEvent<HTMLInputElement>

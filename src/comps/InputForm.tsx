@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import COLOR from "../variable/COLOR";
+import MaskedInput from 'react-text-mask'
+
 
 interface IErr {
     err: string
@@ -29,7 +31,7 @@ transition: all 0.2s ease;
 pointer-events: none;
 `
 
-export default ({label = '', err = '', callback}: { label?: string, err: string, callback: (text: string) => void }) => {
+export default ({label = '', err = '', callback, onBlur=()=>{}, value}: { label?: string, err: string, callback: (text: string) => void, onBlur: () => void ,value:string}) => {
 
     const [empty, setEmpty] = useState<boolean>(true);
 
@@ -38,7 +40,10 @@ export default ({label = '', err = '', callback}: { label?: string, err: string,
             <Label empty={empty} err={err}>
                 {label}
             </Label>
+
             <InputForm
+                value={value}
+                onBlur={onBlur}
                 onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
                     let val = e.target.value
                     callback(val)

@@ -7,7 +7,8 @@ import {Link} from "react-router-dom";
 import ROUTES from "../../variable/ROUTES";
 import InputForm from "../../comps/InputForm";
 import TopBannerMessage from "../../comps/TopBannerMessage";
-
+import validator from 'validator';
+import replaceToPhone from "../../func/replaceToPhone";
 
 const LoginScreenContainer = styled.div``
 
@@ -39,14 +40,27 @@ const LoginScreen = () => {
     const [err, setError] = useState<string>('')
     const [isClickError, setIsClickError] = useState<boolean>(false)
 
-    const checkValidate = () => {
-        setIsClickError(!isClickError)
+    const checkValidate = (click?: boolean) => {
+        let firstErr=!validator.isEmail(login)
+        if(firstErr){
+            setError('Поле «‎Номер телефона или Email заполнено неверно»')
+        }
+        let secondErr= firstErr && click
+        if(secondErr ){
+            setIsClickError(!isClickError)
+        }
     }
 
     const onInputLogin = (text: string) => {
-        setLogin(text)
+        setLogin(replaceToPhone(text, login))
         setError('')
         setIsClickError(false)
+    }
+
+    const blurInput = () => {
+        if (login) {
+            checkValidate()
+        }
     }
 
     return <LoginScreenContainer>
@@ -55,6 +69,8 @@ const LoginScreen = () => {
         <PaddingBox>
             {/*FORM LOGIN TEXT*/}
             <InputForm
+                value={login}
+                onBlur={blurInput}
                 callback={onInputLogin}
                 err={err}
                 label={'Номер телефона или Email'}/>

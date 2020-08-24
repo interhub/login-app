@@ -4,9 +4,6 @@ import TopBannerMessage from "../../comps/TopBannerMessage";
 import BackHeaderTitle from "../../comps/BackHeaderTitle";
 import InputForm from "../../comps/InputForm";
 import ButtonNext from "../../comps/ButtonNext";
-import COLOR from "../../variable/COLOR";
-import {Link} from "react-router-dom";
-import ROUTES from "../../variable/ROUTES";
 
 const RegScreenContainer = styled.div``
 
@@ -37,13 +34,21 @@ const RegScreen = () => {
         setIsClickError(false)
     }
 
+    const blurInput = () => {
+        if (login) {
+            checkValidate()
+        }
+    }
+
     return <RegScreenContainer>
-        <TopBannerMessage  isClickError={isClickError} setIsClickError={setIsClickError} title={err}/>
+        <TopBannerMessage isClickError={isClickError} setIsClickError={setIsClickError} title={err}/>
         <BackHeaderTitle title={'Регистрация в Utair'} size={24}/>
 
         <PaddingBox>
             {/*FORM LOGIN TEXT*/}
             <InputForm
+                value={login}
+                onBlur={blurInput}
                 callback={onInputLogin}
                 err={err}
                 label={'Номер телефона'}/>
