@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {AllState, onInputType} from "../../types/types";
 import {Location} from 'history';
 import formatPhone from "../../func/formatPhone";
+import LoaderAnimate from "../../comps/LoaderAnimate";
 
 const CodeScreenContainer = styled.div``
 
@@ -72,6 +73,7 @@ const CodeScreen = ({location}: { location: Location<any & { login: string }> })
                     </CodeItem>
                 })}
             </CodeBox>
+            <LoaderAnimate/>
         </PaddingBox>
     </CodeScreenContainer>
 }
