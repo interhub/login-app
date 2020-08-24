@@ -1,5 +1,5 @@
 import ACTION from "./actionName";
-import {UserType} from "../types/types";
+import {MessageType, UserType} from "../types/types";
 
 export type logInActionType = { type: ACTION.LOG_IN, login: string }
 export const logInAction = (login: string): logInActionType => ({
@@ -17,4 +17,10 @@ export type logOutActionType = { user: null, type: ACTION.LOG_OUT }
 export const logOutAction = (): logOutActionType => ({
     type: ACTION.LOG_OUT,
     user: null
+})
+
+export type showTopMessageType = { type: ACTION.SHOW_TOP_MESSAGE, message: MessageType }
+export const showTopMessage = ({message}:{message:MessageType}): showTopMessageType => ({
+    type: ACTION.SHOW_TOP_MESSAGE,
+    message
 })

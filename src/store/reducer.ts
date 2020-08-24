@@ -8,6 +8,8 @@ const reducer: any = (state: StateType<UserType> | StateType<null> = {...State},
             return {...state, user: action.user};
         case ACTION.LOG_OUT:
             return {...state, user: null};
+        case ACTION.SHOW_TOP_MESSAGE:
+            return {...state, message: action.message};
         default:
             return state;
     }

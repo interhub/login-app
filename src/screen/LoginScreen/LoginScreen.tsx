@@ -6,10 +6,12 @@ import COLOR from "../../variable/COLOR";
 import {Link} from "react-router-dom";
 import ROUTES from "../../variable/ROUTES";
 import InputForm from "../../comps/InputForm";
-import TopBannerMessage from "../../comps/TopBannerMessage";
 import validator from 'validator';
 import replaceToPhone from "../../func/replaceToPhone";
 import formatPhone from "../../func/formatPhone";
+import {connect, useDispatch} from "react-redux";
+import {showTopMessage} from "../../store/actions";
+import {useHistory} from 'react-router'
 
 const LoginScreenContainer = styled.div``
 
@@ -37,26 +39,29 @@ padding: 20px;
 
 const LoginScreen = () => {
 
+    const dispatch = useDispatch()
+    const history=useHistory()
+
     const [login, setLogin] = useState<string>('')
     const [err, setError] = useState<string>('')
-    const [isClickError, setIsClickError] = useState<boolean>(false)
 
-    const checkValidate = (click?: boolean) => {
+    const checkValidate = (click?: boolean):boolean => {
         let firstErr;
         if (!(formatPhone(login) || validator.isEmail(login))) {
             firstErr = 'Поле «‎Номер телефона или Email заполнено неверно»'
             setError(firstErr)
             if (click) {
-                setIsClickError(true)
+                dispatch(showTopMessage({message: {visible: true, isRed: true, text: firstErr}}))
                 return false
             }
         }
+        return true
     }
 
     const onInputLogin = (text: string) => {
         setLogin(replaceToPhone(text, login))
         setError('')
-        setIsClickError(false)
+        dispatch(showTopMessage({message: {visible: false, text: '', isRed: true}}))
     }
 
     const blurInput = () => {
@@ -65,8 +70,15 @@ const LoginScreen = () => {
         }
     }
 
+    const next=()=>{
+        //TODO
+        // if(!checkValidate(true)){
+        //     return
+        // }
+        history.push({pathname:ROUTES.CODE,state:{login}})
+    }
+
     return <LoginScreenContainer>
-        <TopBannerMessage setIsClickError={setIsClickError} isClickError={isClickError} title={err}/>
         <BackHeaderTitle size={20}/>
         <PaddingBox>
             {/*FORM LOGIN TEXT*/}
@@ -79,9 +91,7 @@ const LoginScreen = () => {
             {/*LOGIN BTN*/}
             <div style={{margin: '50px 0'}}>
                 <ButtonNext
-                    onClick={() => {
-                        checkValidate(true)
-                    }}
+                    onClick={next}
                     title={'Войти'}/>
             </div>
             <GrayText>
@@ -98,4 +108,4 @@ const LoginScreen = () => {
     </LoginScreenContainer>
 }
 
-export default LoginScreen
+export default connect()(LoginScreen)

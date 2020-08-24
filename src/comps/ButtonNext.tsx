@@ -23,7 +23,7 @@ text-align: center;
 font-size: 16px;
 `
 
-export default ({title = 'OK', color = COLOR.DARKBLUE, onClick}: { title?: string, color?: string ,onClick: ()=>void }) => {
+export default ({title = 'OK', color = COLOR.DARKBLUE, onClick}: { title?: string, color?: string, onClick: () => void }) => {
 
     const {goBack} = useHistory()
 

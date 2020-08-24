@@ -9,6 +9,7 @@ import ErrorPage from "./screen/ErrorPage/ErrorPage";
 import UserProfile from "./screen/UserProfile/UserProfile";
 import CodeScreen from "./screen/CodeScreen/CodeScreen";
 import RegScreen from "./screen/RegScreen/RegScreen";
+import TopBannerMessage from "./comps/TopBannerMessage";
 
 const Container = styled.div`
 min-height: 100vh;
@@ -21,13 +22,14 @@ function App({user}: { user: any, }) {
 
     useEffect(() => {
         //TODO CHECK USER LOGIN TOKIN
-        if (true) {
-            history.push(ROUTES.LOG_IN)
-        }
+        // if (true) {
+        //     history.push(ROUTES.LOG_IN)
+        // }
     }, [])
 
     return (
         <Container>
+            <TopBannerMessage/>
             <Switch>
                 <Route exact path={ROUTES.START}>
                     <Redirect to={ROUTES.LOG_IN}/>
@@ -55,7 +57,6 @@ function App({user}: { user: any, }) {
 
 const mapStateToProps = (state: AllState) => {
     //TODO all ConnectedRouter
-    console.log(state, 'ALL STATE')
     return {...state.saga, ...state.router}
 }
 

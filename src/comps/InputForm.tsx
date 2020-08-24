@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import COLOR from "../variable/COLOR";
-import MaskedInput from 'react-text-mask'
-
+import {onInputType} from "../types/types";
 
 interface IErr {
     err: string
@@ -43,8 +42,9 @@ export default ({label = '', err = '', callback, onBlur=()=>{}, value}: { label?
 
             <InputForm
                 value={value}
+                onChange={()=>{}}
                 onBlur={onBlur}
-                onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                onInput={(e: onInputType) => {
                     let val = e.target.value
                     callback(val)
                     setEmpty(val === '')

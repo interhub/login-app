@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import TopBannerMessage from "../../comps/TopBannerMessage";
 import BackHeaderTitle from "../../comps/BackHeaderTitle";
 import InputForm from "../../comps/InputForm";
 import ButtonNext from "../../comps/ButtonNext";
@@ -8,6 +7,10 @@ import replaceToPhone from "../../func/replaceToPhone";
 import COLOR from "../../variable/COLOR";
 import {HiOutlineCheck} from 'react-icons/hi'
 import formatPhone from "../../func/formatPhone";
+import {showTopMessage} from "../../store/actions";
+import {connect, useDispatch} from "react-redux";
+import ROUTES from "../../variable/ROUTES";
+import {useHistory} from "react-router";
 
 const RegScreenContainer = styled.div``
 
@@ -59,39 +62,43 @@ left: 20px;
 
 const RegScreen = () => {
 
+    const dispatch = useDispatch()
+    const history =useHistory()
 
     const [login, setLogin] = useState<string>('')
     const [err, setError] = useState<string>('')
-    const [isClickError, setIsClickError] = useState<boolean>(false)
+    const [checkError, setCheckError] = useState<boolean>(false)
 
     const [checked, setChecked] = useState<boolean>(false)
 
-    const checkValidate = (click?: boolean) => {
+    const checkValidate = (click?: boolean):boolean => {
         let firstErr
 
         if (!formatPhone(login)) {
             firstErr = 'Поле «‎Номер телефона» заполнено неверно'
             setError(firstErr)
             if (click) {
-                setIsClickError(true)
+                dispatch(showTopMessage({message: {visible: true, isRed: true, text: firstErr}}))
                 return false
             }
         }
-        if (!checked) {
+        if (!checked && click) {
             let secondErr = 'Чтобы создать аккаунт, Utair нужно ваше согласие на обработку данных'
             setError(secondErr)
             if (click) {
-                setIsClickError(true)
+                dispatch(showTopMessage({message: {visible: true, isRed: true, text: secondErr}}))
+                setCheckError(true)
                 return false
             }
         }
         return true
     }
 
+
     const onInputLogin = (text: string) => {
         setLogin(replaceToPhone(text, login))
         setError('')
-        setIsClickError(false)
+        dispatch(showTopMessage({message: {visible: false, text: '', isRed: true}}))
     }
 
     const blurInput = () => {
@@ -100,10 +107,22 @@ const RegScreen = () => {
         }
     }
 
-    return <RegScreenContainer>
-        <TopBannerMessage isClickError={isClickError} setIsClickError={setIsClickError} title={err}/>
-        <BackHeaderTitle title={'Регистрация в Utair'} size={24}/>
+    const onChecking = () => {
+        setChecked(!checked)
+        setError('')
+        setCheckError(false)
+        dispatch(showTopMessage({message: {visible: false, text: '', isRed: true}}))
+    }
 
+    const next=()=>{
+        if(!checkValidate(true)){
+            return
+        }
+        history.push(ROUTES.CODE)
+    }
+
+    return <RegScreenContainer>
+        <BackHeaderTitle title={'Регистрация в Utair'} size={24}/>
         <PaddingBox>
             {/*FORM LOGIN TEXT*/}
             <InputForm
@@ -120,11 +139,9 @@ const RegScreen = () => {
                 <CapchaBlock>
                     <div style={{flex: 1}}>
                         <CheckBox
-                            onClick={() => {
-                                setChecked(!checked)
-                                setIsClickError(false)
-                            }}
-                            checked={checked} error={isClickError}>
+                            onClick={onChecking}
+                            checked={checked}
+                            error={checkError}>
                             <HiOutlineCheck color={'#fff'} size={25}/>
                         </CheckBox>
                     </div>
@@ -132,9 +149,7 @@ const RegScreen = () => {
                         согласие</LinkHref> на их обработку</CapchaText>
                 </CapchaBlock>
                 <ButtonNext
-                    onClick={() => {
-                        checkValidate(true)
-                    }}
+                    onClick={next}
                     title={'Продолжить'}/>
             </CapchaColumn>
 
@@ -143,4 +158,4 @@ const RegScreen = () => {
     </RegScreenContainer>
 }
 
-export default RegScreen
+export default connect()(RegScreen)
