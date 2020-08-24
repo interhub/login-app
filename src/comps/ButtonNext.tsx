@@ -6,7 +6,6 @@ import COLOR from "../variable/COLOR";
 const ButtonNext = styled.div<{ color: string }>`
  background-color: ${({color}) => color};
  color:#fff;
- margin: 50px 0;
  min-height: 60px;
  display: flex;
  align-items: center;

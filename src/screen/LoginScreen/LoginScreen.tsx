@@ -9,6 +9,7 @@ import InputForm from "../../comps/InputForm";
 import TopBannerMessage from "../../comps/TopBannerMessage";
 import validator from 'validator';
 import replaceToPhone from "../../func/replaceToPhone";
+import formatPhone from "../../func/formatPhone";
 
 const LoginScreenContainer = styled.div``
 
@@ -41,13 +42,14 @@ const LoginScreen = () => {
     const [isClickError, setIsClickError] = useState<boolean>(false)
 
     const checkValidate = (click?: boolean) => {
-        let firstErr=!validator.isEmail(login)
-        if(firstErr){
-            setError('Поле «‎Номер телефона или Email заполнено неверно»')
-        }
-        let secondErr= firstErr && click
-        if(secondErr ){
-            setIsClickError(!isClickError)
+        let firstErr;
+        if (!(formatPhone(login) || validator.isEmail(login))) {
+            firstErr = 'Поле «‎Номер телефона или Email заполнено неверно»'
+            setError(firstErr)
+            if (click) {
+                setIsClickError(true)
+                return false
+            }
         }
     }
 
@@ -75,11 +77,13 @@ const LoginScreen = () => {
                 err={err}
                 label={'Номер телефона или Email'}/>
             {/*LOGIN BTN*/}
-            <ButtonNext
-                onClick={() => {
-                    checkValidate()
-                }}
-                title={'Войти'}/>
+            <div style={{margin: '50px 0'}}>
+                <ButtonNext
+                    onClick={() => {
+                        checkValidate(true)
+                    }}
+                    title={'Войти'}/>
+            </div>
             <GrayText>
                 Нет аккаунта?
             </GrayText>
