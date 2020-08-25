@@ -5,7 +5,7 @@ const state: StateType<null> = {
     user: null,
     token: '',
     message: {text: '', isRed: true, visible: false},
-    loading: loadingStateMachine(LOADING_STATE_NAME.SUCCESS)
+    loading: loadingStateMachine(LOADING_STATE_NAME.HIDE)
 }
 
 export default state
