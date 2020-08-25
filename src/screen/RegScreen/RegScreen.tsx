@@ -7,11 +7,13 @@ import replaceToPhone from "../../func/replaceToPhone";
 import COLOR from "../../variable/COLOR";
 import {HiOutlineCheck} from 'react-icons/hi'
 import formatPhone from "../../func/formatPhone";
-import {showTopMessage} from "../../store/actions";
+import {setLoadingAction, showTopMessage} from "../../store/actions";
 import {connect, useDispatch} from "react-redux";
 import ROUTES from "../../variable/ROUTES";
 import {useHistory} from "react-router";
-import {RouteParamsFromCodeScreen} from "../../types/types";
+import {AllState, LoadingType, RouteParamsFromCodeScreen} from "../../types/types";
+import LoaderAnimate from "../../comps/LoaderAnimate";
+import {LOADING_STATE_NAME} from "../../variable/LOADING_STATE";
 
 const RegScreenContainer = styled.div``
 
@@ -22,6 +24,11 @@ padding: 20px;
 const LabelUnderline = styled.p`
 color:#999;
 font-size: 14px;
+margin-bottom: 20px;
+`
+
+const LoadetText = styled(LabelUnderline)`
+text-align: center;
 `
 
 const CapchaBlock = styled.div`
@@ -39,9 +46,13 @@ const CapchaText = styled.p`
 flex: 6
 `
 
-const CheckBox = styled.div<{ error: boolean, checked: boolean }>`
-  outline: 2px solid ${({error}) => error ? COLOR.ERR : COLOR.DARKBLUE};
-  background-color: ${({checked}) => checked ? COLOR.DARKBLUE : COLOR.WHITE};
+const LoaderBox = styled.div`
+margin: 50px 0;
+`
+
+const CheckBox = styled.div<{ error: boolean, checked: boolean, disabled: boolean }>`
+  outline: 2px solid ${({error, disabled}) => error ? COLOR.ERR : (disabled ? COLOR.DISABLED : COLOR.DARKBLUE)};
+  background-color: ${({checked, disabled}) => disabled ? COLOR.DISABLED : (checked ? COLOR.DARKBLUE : COLOR.WHITE)};
   width: 25px;
   height: 25px ;
   margin-bottom: -10px;
@@ -49,9 +60,7 @@ const CheckBox = styled.div<{ error: boolean, checked: boolean }>`
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  &:active{
-    background-color: darkblue;
-  }
+  cursor: pointer;
 `
 
 const CapchaColumn = styled.div`
@@ -61,7 +70,8 @@ right: 20px;
 left: 20px;
 `
 
-const RegScreen = () => {
+const RegScreen = ({loading}: { loading: LoadingType }) => {
+    const disabled = loading.visible
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -71,6 +81,8 @@ const RegScreen = () => {
     const [checkError, setCheckError] = useState<boolean>(false)
 
     const [checked, setChecked] = useState<boolean>(false)
+
+    const hideLoading = () => dispatch(setLoadingAction(LOADING_STATE_NAME.HIDE))
 
     const checkValidate = (click?: boolean): boolean => {
         let firstErr
@@ -100,6 +112,7 @@ const RegScreen = () => {
         setLogin(replaceToPhone(text, login))
         setError('')
         dispatch(showTopMessage({message: {visible: false, text: '', isRed: true}}))
+        hideLoading()
     }
 
     const blurInput = () => {
@@ -109,6 +122,9 @@ const RegScreen = () => {
     }
 
     const onChecking = () => {
+        if (disabled) {
+            return
+        }
         setChecked(!checked)
         setError('')
         setCheckError(false)
@@ -136,11 +152,18 @@ const RegScreen = () => {
             <LabelUnderline>
                 Укажите ваш номер телефона. Он будет использоваться для входа в приложение
             </LabelUnderline>
+            <LoaderBox>
+                <LoaderAnimate/>
+                {loading.process && <LoadetText>
+                    Отправляем код подтверждения...
+                </LoadetText>}
+            </LoaderBox>
             {/*CAPCHA BOX*/}
             <CapchaColumn>
                 <CapchaBlock>
                     <div style={{flex: 1}}>
                         <CheckBox
+                            disabled={disabled}
                             onClick={onChecking}
                             checked={checked}
                             error={checkError}>
@@ -151,6 +174,7 @@ const RegScreen = () => {
                         согласие</LinkHref> на их обработку</CapchaText>
                 </CapchaBlock>
                 <ButtonNext
+                    disabled={disabled}
                     onClick={next}
                     title={'Продолжить'}/>
             </CapchaColumn>
@@ -160,4 +184,5 @@ const RegScreen = () => {
     </RegScreenContainer>
 }
 
-export default connect()(RegScreen)
+const mapStateToProps = (state: AllState) => ({...state.router, ...state.saga})
+export default connect(mapStateToProps)(RegScreen)

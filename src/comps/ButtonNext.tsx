@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import {useHistory} from "react-router";
 import COLOR from "../variable/COLOR";
 
-const ButtonNext = styled.div<{ color: string }>`
- background-color: ${({color}) => color};
+const ButtonNext = styled.div<{ disabled: boolean }>`
+ background-color: ${({disabled}) => disabled ? COLOR.DISABLED : COLOR.DARKBLUE};
  color:#fff;
  min-height: 60px;
  display: flex;
@@ -25,11 +24,12 @@ text-align: center;
 font-size: 16px;
 `
 
-export default ({title = 'OK', color = COLOR.DARKBLUE, onClick}: { title?: string, color?: string, onClick: () => void }) => {
+export default ({title = 'OK', onClick, disabled = false}: { title?: string, onClick: () => void, disabled?: boolean }) => {
 
-    const {goBack} = useHistory()
-
-    return <ButtonNext onClick={onClick} color={color}>
+    return <ButtonNext disabled={disabled} onClick={() => {
+        if (!disabled)
+            onClick()
+    }}>
         <ButtonTitle>{title}</ButtonTitle>
     </ButtonNext>
 }

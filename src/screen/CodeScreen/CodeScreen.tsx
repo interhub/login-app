@@ -105,7 +105,6 @@ const CodeScreen: React.FC<any> = ({location, loading}: { location: Location<Rou
                     </CodeItem>
                 })}
             </CodeBox>}
-
             <LoaderAnimate/>
         </PaddingBox>
     </CodeScreenContainer>

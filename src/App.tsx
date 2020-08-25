@@ -22,7 +22,7 @@ function App({user}: { user: any, }) {
     let history = useHistory();
 
     useEffect(() => {
-        //TODO CHECK USER LOGIN TOKIN
+        //TODO CHECK USER LOGIN TOKIN AND REDIRECTING TO PROFILE OR LOGIN
         // if (true) {
         //     history.push(ROUTES.LOG_IN)
         // }
