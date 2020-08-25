@@ -1,11 +1,15 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styled from "styled-components";
 import BackHeaderTitle from "../../comps/BackHeaderTitle";
-import {connect} from "react-redux";
-import {AllState, onInputType} from "../../types/types";
+import {connect, useDispatch} from "react-redux";
+import {AllState, LoadingType, onInputType, RouteParamsFromCodeScreen} from "../../types/types";
 import {Location} from 'history';
 import formatPhone from "../../func/formatPhone";
 import LoaderAnimate from "../../comps/LoaderAnimate";
+import ROUTES from "../../variable/ROUTES";
+import {useHistory} from "react-router";
+import {LOADING_STATE_NAME} from "../../variable/LOADING_STATE";
+import {setLoadingAction} from "../../store/actions";
 
 const CodeScreenContainer = styled.div``
 
@@ -25,16 +29,16 @@ const CodeBox = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-margin-top: 10px;
+margin-bottom: 20px;
 `
 
-const CodeItem = styled.div<{ isEmpty: boolean }>`
+const CodeItem = styled.div<{ isEmpty: boolean, isFocus: boolean }>`
 display: flex;
 justify-content: center;
 align-items: center;
 flex:1;
 font-size: 20px;
-border-bottom: ${({isEmpty}) => !isEmpty ? '2px solid lightgray' : '2px solid darkblue'} ;
+border-bottom: ${({isEmpty, isFocus}) => !isEmpty ? (isFocus ? '3px' : '2px') + ' solid lightgray' : '2px solid darkblue'} ;
 margin: 5px;
 max-width: 30px;
 height: 40px;
@@ -42,37 +46,66 @@ font-weight: 600;
 `
 
 
-const CodeScreen = ({location}: { location: Location<any & { login: string }> }) => {
+const CodeScreen: React.FC<any> = ({location, loading}: { location: Location<RouteParamsFromCodeScreen>, loading: LoadingType }) => {
+    const histoty = useHistory()
+    const dispatch = useDispatch()
 
     const [code, setCode] = useState<string>('');
-
+    const registration = location?.state?.registration || false;
     const login = location?.state?.login;
-    const isPhone = !!formatPhone(login || '')
+    if (!login) {
+        histoty.push(ROUTES.START)
+    }
+    const isPhone = !!formatPhone(login)
     const titleText = isPhone ?
         <p>{`Введите код из SMS, отправленный на номер`} <br/> {login}</p> :
         <p>{`Введите код из письма, отправленный на почту`} <br/> {login}</p>
 
-    const inputRef: any = useRef(null)
+    const inputRef: React.RefObject<HTMLInputElement> = useRef(null)
+    useEffect(() => {
+        if (loading.success) {
+            setTimeout(() => {
+                if (registration) {
+                    //TODO ADD
+                    histoty.push({pathname: ROUTES.START, state: {}})
+                } else {
+                    histoty.push({pathname: ROUTES.PROFILE, state: {}})
+                }
+            }, 1500)
+        }
+    }, [loading])
+    useEffect(() => {
+        if (code.length === 4) {
+            //TODO LOAD REUEST SERVER
+            dispatch(setLoadingAction(LOADING_STATE_NAME.SUCCESS))
+        }
+    }, [code])
+    useEffect(() => {
+        return () => {
+            dispatch(setLoadingAction(LOADING_STATE_NAME.HIDE))
+        }
+    }, [])
 
     return <CodeScreenContainer>
-        <input onInput={(e: onInputType) => {
+        <input autoFocus onInput={(e: onInputType) => {
             setCode(e.target.value)
         }} ref={inputRef} style={{opacity: 0, position: 'fixed', top: -20}} maxLength={4} type="phone"/>
         <BackHeaderTitle title={'Подтверждение'} size={25}/>
         <PaddingBox>
             <TitleText>{titleText}</TitleText>
-            <CodeBox
+            {!(loading.process || loading.success) && <CodeBox
                 onClick={() => {
                     inputRef?.current?.focus()
-                }}
-            >
+                }}>
                 {Array(4).fill(1).map((el, key: number) => {
                     let val = code[key];
-                    return <CodeItem isEmpty={!!val}>
+                    let isFocus = code.length === key;
+                    return <CodeItem isFocus={isFocus} key={key} isEmpty={!!val}>
                         {val || ''}
                     </CodeItem>
                 })}
-            </CodeBox>
+            </CodeBox>}
+
             <LoaderAnimate/>
         </PaddingBox>
     </CodeScreenContainer>

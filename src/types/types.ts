@@ -1,11 +1,18 @@
-import {logInActionType, logOutActionType, setUserActionType, showTopMessageType} from "../store/actions";
+import {
+    logInActionType,
+    logOutActionType,
+    setLoadingActionType,
+    setUserActionType,
+    showTopMessageType
+} from "../store/actions";
 import {RouterState} from "connected-react-router";
 import React from "react";
 
 export type StateType<T> = {
     user: T extends UserType ? UserType : null,
     token: TokenType,
-    message: MessageType
+    message: MessageType,
+    loading: LoadingType
 }
 
 export type TokenType = string
@@ -27,12 +34,23 @@ export type MessageType = {
     visible: boolean
 }
 
+
+export type LoadingType = {
+    process: boolean
+    success: boolean
+    error: boolean
+    visible: boolean
+}
+
 export type ActionType =
     logInActionType |
     setUserActionType |
     logOutActionType |
-    showTopMessageType
+    showTopMessageType |
+    setLoadingActionType
 
 export type Body = { login: string }
+
+export type RouteParamsFromCodeScreen= {login: string, registration: boolean}
 
 export type onInputType = React.ChangeEvent<HTMLInputElement>

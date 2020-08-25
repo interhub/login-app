@@ -24,6 +24,7 @@ export default ({title = '', size = 20}: { title?: string, size: number }) => {
 
     return <BackHeaderTitle>
         <BiArrowBack
+            style={{cursor: 'pointer'}}
             onClick={goBack}
             size={30} color={COLOR.DARKBLUE}/>
         <Title size={size}>{title}</Title>

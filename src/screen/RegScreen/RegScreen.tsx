@@ -11,6 +11,7 @@ import {showTopMessage} from "../../store/actions";
 import {connect, useDispatch} from "react-redux";
 import ROUTES from "../../variable/ROUTES";
 import {useHistory} from "react-router";
+import {RouteParamsFromCodeScreen} from "../../types/types";
 
 const RegScreenContainer = styled.div``
 
@@ -63,7 +64,7 @@ left: 20px;
 const RegScreen = () => {
 
     const dispatch = useDispatch()
-    const history =useHistory()
+    const history = useHistory()
 
     const [login, setLogin] = useState<string>('')
     const [err, setError] = useState<string>('')
@@ -71,7 +72,7 @@ const RegScreen = () => {
 
     const [checked, setChecked] = useState<boolean>(false)
 
-    const checkValidate = (click?: boolean):boolean => {
+    const checkValidate = (click?: boolean): boolean => {
         let firstErr
 
         if (!formatPhone(login)) {
@@ -114,11 +115,12 @@ const RegScreen = () => {
         dispatch(showTopMessage({message: {visible: false, text: '', isRed: true}}))
     }
 
-    const next=()=>{
-        if(!checkValidate(true)){
+    const next = () => {
+        if (!checkValidate(true)) {
             return
         }
-        history.push(ROUTES.CODE)
+        let params: RouteParamsFromCodeScreen = {login, registration: true}
+        history.push({pathname: ROUTES.CODE, state: params})
     }
 
     return <RegScreenContainer>

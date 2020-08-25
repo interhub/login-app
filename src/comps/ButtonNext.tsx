@@ -11,11 +11,13 @@ const ButtonNext = styled.div<{ color: string }>`
  align-items: center;
  justify-content: center;
  transition: all 0.2s ease;
+ cursor: pointer;
  &:active{
  background-color: #fff;
  color: ${({color}) => color};
  outline: 1px solid ${({color}) => color};
- }
+ };
+ 
 `
 
 const ButtonTitle = styled.p`

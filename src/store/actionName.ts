@@ -1,7 +1,9 @@
 enum ACTION {
-    LOG_IN='LOG_IN',
-    LOG_OUT='LOG_OUT',
-    SET_USER='SET_USER',
-    SHOW_TOP_MESSAGE='SHOW_TOP_MESSAGE',
+    LOG_IN = 'LOG_IN',
+    LOG_OUT = 'LOG_OUT',
+    SET_USER = 'SET_USER',
+    SHOW_TOP_MESSAGE = 'SHOW_TOP_ MESSAGE',
+    SET_LOADING = 'SET_LOADING'
 }
+
 export default ACTION

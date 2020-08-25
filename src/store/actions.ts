@@ -1,5 +1,6 @@
 import ACTION from "./actionName";
-import {MessageType, UserType} from "../types/types";
+import {LoadingType, MessageType, UserType} from "../types/types";
+import {LOADING_STATE_NAME, loadingStateMachine} from "../variable/LOADING_STATE";
 
 export type logInActionType = { type: ACTION.LOG_IN, login: string }
 export const logInAction = (login: string): logInActionType => ({
@@ -20,7 +21,13 @@ export const logOutAction = (): logOutActionType => ({
 })
 
 export type showTopMessageType = { type: ACTION.SHOW_TOP_MESSAGE, message: MessageType }
-export const showTopMessage = ({message}:{message:MessageType}): showTopMessageType => ({
+export const showTopMessage = ({message}: { message: MessageType }): showTopMessageType => ({
     type: ACTION.SHOW_TOP_MESSAGE,
     message
+})
+
+export type setLoadingActionType = { type: ACTION.SET_LOADING, loading: LoadingType }
+export const setLoadingAction = (state_name: LOADING_STATE_NAME): setLoadingActionType => ({
+    type: ACTION.SET_LOADING,
+    loading : loadingStateMachine(state_name)
 })

@@ -13,6 +13,7 @@ import TopBannerMessage from "./comps/TopBannerMessage";
 
 const Container = styled.div`
 min-height: 100vh;
+//TODO MOBILE WIDTH
 `
 
 function App({user}: { user: any, }) {

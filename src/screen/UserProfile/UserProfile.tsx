@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const UserProfileContainer=styled.div`
-background-color: red;
-`
+const UserProfileContainer=styled.div``
 
 const UserProfile = () => {
     return <UserProfileContainer>
-        профиль
+        Страница пользователя
     </UserProfileContainer>
 }
 

@@ -12,6 +12,7 @@ import formatPhone from "../../func/formatPhone";
 import {connect, useDispatch} from "react-redux";
 import {showTopMessage} from "../../store/actions";
 import {useHistory} from 'react-router'
+import {RouteParamsFromCodeScreen} from "../../types/types";
 
 const LoginScreenContainer = styled.div``
 
@@ -40,12 +41,12 @@ padding: 20px;
 const LoginScreen = () => {
 
     const dispatch = useDispatch()
-    const history=useHistory()
+    const history = useHistory()
 
     const [login, setLogin] = useState<string>('')
     const [err, setError] = useState<string>('')
 
-    const checkValidate = (click?: boolean):boolean => {
+    const checkValidate = (click?: boolean): boolean => {
         let firstErr;
         if (!(formatPhone(login) || validator.isEmail(login))) {
             firstErr = 'Поле «‎Номер телефона или Email заполнено неверно»'
@@ -70,12 +71,12 @@ const LoginScreen = () => {
         }
     }
 
-    const next=()=>{
-        //TODO
-        // if(!checkValidate(true)){
-        //     return
-        // }
-        history.push({pathname:ROUTES.CODE,state:{login}})
+    const next = () => {
+        if(!checkValidate(true)){
+            return
+        }
+        let params: RouteParamsFromCodeScreen = {login, registration: false}
+        history.push({pathname: ROUTES.CODE, state: params})
     }
 
     return <LoginScreenContainer>

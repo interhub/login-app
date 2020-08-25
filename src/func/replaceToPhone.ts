@@ -9,8 +9,8 @@ export default (val: string, prev: string): string => {
         return [...[val?.slice(0, val?.length - 1), ch, val?.slice(-1)]].join('')
     }
     if (Number(val?.replace(/($\+)|\s|\(|\)|\-/g, '')) || val === '+') {
-        if (val.length===1 && Number(val)) {
-            return addCharPrevEnd('+ 7 (')
+        if (val.length === 1 && Number(val) || val === '+ 7 (7') {
+            return '+ 7 ('
         }
         if (val.length === 9) {
             return addCharPrevEnd(') ')
