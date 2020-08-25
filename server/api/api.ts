@@ -1,14 +1,12 @@
+import login from "./metod/login";
+import registration from "./metod/registration";
+import getCode from "./metod/getCode";
+import verifyUserByCode from "./metod/verifyUserByCode";
+
 export default {
-    login: (login:string) => {
-
-    },
-    registration: (login:string) => {
-
-    },
-    getCode: (login: string) => {
-
-    },
-    verifyUserByCode: (login:string, code: string) => {
-
-    }
+    login,
+    registration,
+    getCode,
+    verifyUserByCode
 }
+
