@@ -5,6 +5,7 @@ import {
     logInActionType,
     registrationActionType,
     setLoadingAction,
+    setUserAction,
     showTopMessage
 } from "./actions";
 import {call, put} from "redux-saga/effects";
@@ -15,7 +16,9 @@ import {
     BodyRegType,
     ResConfirmType,
     ResLoginType,
+    ResProfileType,
     ResRegType,
+    ResReportType,
     TokenType
 } from "../../server/types/types";
 import {BodyGuest, RouteParamsFromCodeScreen} from "../types/types";
@@ -127,6 +130,33 @@ export const loadCodeVerify = function* ({code, login, registration}: codeVerify
     } catch (e) {
         yield put(setLoadingAction(LOADING_STATE_NAME.ERROR))
         yield put(showTopMessage({message: {isRed: true, text: e.message || 'Ошибка', visible: true}}))
+    }
+}
+
+//GET USER DATA
+export const loadGetUserData = function* ({login}: getTokenActionType) {
+    let {token} = JSON.parse(localStorage.getItem('tokens') || "{}") || {token: ''}
+    const getUserFetch = (): Promise<ResConfirmType> =>
+        fetch(LOCATION + '/account/profile', {
+            method: 'get',
+            headers: {
+                token
+            }
+        }).then((r) => r.json())
+    try {
+        yield put(setLoadingAction(LOADING_STATE_NAME.PROCESS))
+        const res: ResProfileType & ResReportType | any = yield call(getUserFetch)
+        console.log(res,'RESPONSE')
+        if (res.result) {
+            yield put(setUserAction(res))
+            yield put(setLoadingAction(LOADING_STATE_NAME.HIDE))
+        } else {
+            throw new Error('Ошибка')
+        }
+    } catch (e) {
+        yield put(setLoadingAction(LOADING_STATE_NAME.ERROR))
+        yield put(showTopMessage({message: {isRed: true, text: e.message || 'Ошибка', visible: true}}))
+        console.log('GET USER DATA ERR')
     }
 }
 

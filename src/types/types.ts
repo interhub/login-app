@@ -1,4 +1,5 @@
 import {
+    getUserDataActionType,
     logInActionType,
     logOutActionType,
     setLoadingActionType,
@@ -47,7 +48,8 @@ export type ActionType =
     setUserActionType |
     logOutActionType |
     showTopMessageType |
-    setLoadingActionType
+    setLoadingActionType |
+    getUserDataActionType
 
 export type Body = { login: string }
 

@@ -14,6 +14,13 @@ export const setUserAction = (user: UserType): setUserActionType => ({
     user
 })
 
+export type getUserDataActionType = { type: ACTION.GET_USER }
+export const getUserDataAction = (): getUserDataActionType => ({
+    type: ACTION.GET_USER
+})
+
+
+
 export type logOutActionType = { user: null, type: ACTION.LOG_OUT }
 export const logOutAction = (): logOutActionType => ({
     type: ACTION.LOG_OUT,

@@ -2,7 +2,7 @@ import {ResRegType, ResReportType, UserType} from "../../types/types";
 import database, {TABLES} from "../../db/database";
 
 export default function (login: string): ResRegType | ResReportType {
-    let user: UserType = {
+    let user: UserType = { //TODO FIX ALL DATA
         login,
         name: '',
         create_at: Date.now(),

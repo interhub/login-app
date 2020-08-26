@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import {connect, useDispatch} from "react-redux";
-import {logOutAction} from "../../store/actions";
+import {getUserDataAction, logOutAction} from "../../store/actions";
 
 const UserProfileContainer = styled.div``
 
@@ -12,6 +12,10 @@ const UserProfile = () => {
     const logOut=()=>{
       dispatch(logOutAction())
     }
+
+    useEffect(()=>{
+        dispatch(getUserDataAction())
+    },[])
 
     return <UserProfileContainer>
         Страница пользователя

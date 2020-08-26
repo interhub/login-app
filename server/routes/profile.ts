@@ -21,10 +21,13 @@ router.get('/', (req: Request, res: Response) => {
     const {token}: any = req.headers
     let {login} = database.get<{ token: string }>(TABLES.token, {token}) || {login: ''}
     let user = database.get<{ login: string }>(TABLES.user, {login})
-    let data: ResProfileType & UserType | ResReportType = user ? {...user, ...ProfileUser} : {
-        result: false,
-        message: ''
-    }
+    let data: ResProfileType & UserType | ResReportType =
+        user ?
+            {...user, ...ProfileUser, result: true} :
+            {
+                result: false,
+                message: ''
+            }
     res.send({...data})
 })
 //REGISTRATION

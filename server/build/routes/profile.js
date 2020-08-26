@@ -13,10 +13,11 @@ router.get('/', (req, res) => {
     const { token } = req.headers;
     let { login } = database_1.default.get("token" /* token */, { token }) || { login: '' };
     let user = database_1.default.get("user" /* user */, { login });
-    let data = user ? Object.assign(Object.assign({}, user), types_1.ProfileUser) : {
-        result: false,
-        message: ''
-    };
+    let data = user ? Object.assign(Object.assign(Object.assign({}, user), types_1.ProfileUser), { result: true }) :
+        {
+            result: false,
+            message: ''
+        };
     res.send(Object.assign({}, data));
 });
 //REGISTRATION
