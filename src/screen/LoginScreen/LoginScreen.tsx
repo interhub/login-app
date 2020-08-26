@@ -10,7 +10,7 @@ import validator from 'validator';
 import replaceToPhone from "../../func/replaceToPhone";
 import formatPhone from "../../func/formatPhone";
 import {connect, useDispatch} from "react-redux";
-import {setLoadingAction, showTopMessage} from "../../store/actions";
+import {logInAction, setLoadingAction, showTopMessage} from "../../store/actions";
 import {useHistory} from 'react-router'
 import {AllState, LoadingType, RouteParamsFromCodeScreen} from "../../types/types";
 import LoaderAnimate from "../../comps/LoaderAnimate";
@@ -94,7 +94,8 @@ const LoginScreen = ({loading}: { loading: LoadingType }) => {
             return
         }
         let params: RouteParamsFromCodeScreen = {login, registration: false}
-        history.push({pathname: ROUTES.CODE, state: params})
+        dispatch(logInAction(login))
+        // history.push({pathname: ROUTES.CODE, state: params})
     }
 
     return <LoginScreenContainer>
