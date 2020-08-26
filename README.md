@@ -1,44 +1,105 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Бизнес-задача
 
-## Available Scripts
+Реализовать функционал авторизации и регистрации в mobile web Utair, используя следующий стэк:
+- CRA
+- React.js
+- Redux
+- Redux-saga
+- React-router
+- Connected-react-router
 
-In the project directory, you can run:
+## Задачи
 
-### `npm start`
+1. Реализовать механизм получения и хранения токенов, используя методы /session/guest и /session/refresh
+2. Реализовать механизм взаимодействия с API
+3. Реализовать механизм авторизации и регистрации без дизайна,без валидации полей, без анимаций. Только получение данных от пользователя, переход по страницам и запросы к API. При успехе регистрации нужно предзаполнить форму логина, перейти на страницу sign in и запустить процесс авторизации. Если пользователь трижды вводит неправильный пин-код - очищать стейт приложения, переходить на страницу sign in.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Дополнительные задания (по желанию, не обязательно)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+4. Реализовать snack-bar feature - показ уведомлений пользователю. По дефолту показывать 3000мс. Показывать ошибки API или предусмотренные в дизайне в снеках. Для ошибок API использовать поле msgUser
+6. Сделать автоформатирование телефона типа +7 (999) 333-22-22. Провалидировать тектовые поля на этапе заполнения.
+5. Сделать анимированный лоадер (см. дизайн)
+6. Сверстать экраны (см. дизайн)
+7. При успешном логине сделать запрос GET /account/profile и вывести в консоль
 
-### `npm test`
+Внимание!
+Зарегистрироваться со своим номером телефона вы сможете только 1 раз.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Дизайн
 
-### `npm run build`
+https://www.figma.com/file/ifEf06dcm84dEc6sRGdB1D/Kode-test-task
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## API
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+API Endpoint url: https://www.utair.ru/mobile/api/v8
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+Session Guest - получение токенов
+POST /sessions/guest
+type Body = {"appVersion":"Web","brandName":"Web","lang":"ru","model":"Web","osVersion":"Web","platform":"web","screenResolution":"Web","udid":"65eeaed8-ce5e-414f-9193-5246b913bdec"}
 
-### `npm run eject`
+udid генерируется 1 раз на клиенте с помощью uuid и сохраняется на устройстве
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+пример ответа:
+{"token": "75f7da80165bb8f93381ec4ad28a34ef6b80ea0aa7e9f3ce5d829fab5646eaad", "refresh_token": "c4fac2e41aef1e3bbeaa91628911f5563379640bce6a6757583f7c08a99c6f55"}
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+Session Refresh - обновление токена (использовать на ошибку "AuthTokenExpired")
+POST /sessions/refresh
+type Body = {
+  refresh_token: string
+}
+пример ответа:
+{"token": "75f7da80165bb8f93381ec4ad28a34ef6b80ea0aa7e9f3ce5d829fab5646eaad", "refresh_token": "c4fac2e41aef1e3bbeaa91628911f5563379640bce6a6757583f7c08a99c6f55"}
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Полученный токен использовать во всех остальных запросах, передавая его в Headers, например "Authorization: Token 75f7da80165bb8f96b81ec4ad28a34ef6b80ea0aa7e9f3ce5d829fab5646eaad"
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+Вход, повторная отправка кода подтверждения
+POST /account/profile/login
+type Body = { login: string }
 
-## Learn More
+login - номер телефона (например, '79995554433') или email (например, 'trainee@appkode.ru')
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+пример ответа:
+{"attemptId": "a955002f-9166-4a3c-8d1e-c488c9d772b7", "channel": "phone"}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+Регистрация
+POST /account/profile
+type Body = { login: string; confirmationGDPRDate: number}
+
+login - номер телефона, например '79995554433'
+confirmationGDPRDate - timestamp на момент отправки запроса
+
+```
+
+```
+Подтверждение входа
+POST /account/profile/login/confirm
+type Body = {
+  attemptId: string;
+  code: string
+}
+
+attemptId - из результатов запроса login
+code - введенный пользователем 4значный код (например, '1234')
+
+пример ответа:
+{"success": true, "id": "some id", "krrParams": {"krrAccessToken": "some access token", "krrRefreshToken": "some refresh tokne", "loginConfirmCookie": "some cookie"}}
+```
+
+```
+Получение данных профиля
+GET /account/profile
+
+пример ответа:
+{"profileData": {"address": {}, "block": {}, "cards": [], "categories": [], "channels": {"email": {"verified": true}, "phone": {"verified": true}, "sms": {"verified": true}}, "documents": [{"number": "2400111222", "type": "PS"}], "email": "email@gmail.com", "initials": {"original": {"name": "", "secondName": "", "surname": ""}}, "initialsIsEditable": true, "phone": "+79995554433", "security": {}, "status": {"cardNo": "1024444228"}, "gender": ""}, "bonusData": {"qualifying": 0, "household": 0, "level": null, "redemption": 0, "levelExpire": null}, "profileIsLimited": true}
+```
+
+## Результат
+
+Результат разместить в ПРИВАТНОМ личном github, добавить в коллабораторы https://github.com/vsfront
