@@ -9,7 +9,7 @@ function default_1(login) {
         login,
         name: '',
         create_at: Date.now(),
-        udid: ''
+        udid: '123'
     };
     let isExist = database_1.default.get("user" /* user */, { login });
     if (!isExist) {
@@ -19,6 +19,6 @@ function default_1(login) {
         return { message: '', result: true, code, attemptId: 'a955002f-9166-4a3c-8d1e-c488c9d772b7' }; //TODO FIX attemptId
     }
     //fail - user not exist
-    return { message: 'Не удалось создать аккаунт', result: false };
+    return { message: 'Пользователь уже существует', result: false };
 }
 exports.default = default_1;

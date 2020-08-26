@@ -39,11 +39,12 @@ export const registrationAction = (login: string): registrationActionType => ({
     login
 })
 
-export type codeVerifyActionType = { type: ACTION.CODE_VERIFY, code: string, login: string }
-export const codeVerifyAction = (code: string, login: string): codeVerifyActionType => ({
+export type codeVerifyActionType = { type: ACTION.CODE_VERIFY, code: string, login: string, registration: boolean }
+export const codeVerifyAction = (code: string, login: string, registration:boolean): codeVerifyActionType => ({
     type: ACTION.CODE_VERIFY,
     code,
-    login
+    login,
+    registration
 })
 
 export type getTokenActionType = { type: ACTION.GET_TOKEN, login: string }

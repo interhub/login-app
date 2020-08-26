@@ -76,7 +76,7 @@ const CodeScreen: React.FC<any> = ({location, loading}: { location: Location<Rou
 
     useEffect(() => {
         if (code.length === 4) {
-            dispatch(codeVerifyAction(code, login))
+            dispatch(codeVerifyAction(code, login, registration))
             dispatch(setLoadingAction(LOADING_STATE_NAME.SUCCESS))
         }
     }, [code])

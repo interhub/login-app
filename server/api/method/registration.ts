@@ -6,7 +6,7 @@ export default function (login: string): ResRegType | ResReportType {
         login,
         name: '',
         create_at: Date.now(),
-        udid: ''
+        udid: '123'
     }
     let isExist = database.get<{ login: string }>(TABLES.user, {login})
     if (!isExist) {
@@ -16,5 +16,5 @@ export default function (login: string): ResRegType | ResReportType {
         return {message: '', result: true, code, attemptId: 'a955002f-9166-4a3c-8d1e-c488c9d772b7'} //TODO FIX attemptId
     }
     //fail - user not exist
-    return {message: 'Не удалось создать аккаунт', result: false}
+    return {message: 'Пользователь уже существует', result: false}
 }

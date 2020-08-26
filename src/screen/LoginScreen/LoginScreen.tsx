@@ -65,7 +65,7 @@ const LoginScreen: React.FC<any> = ({loading, location}: { loading: LoadingType,
                 }
             }))
             setLogin(readyOldLogin)
-            dispatch(getTokenAction(readyOldLogin))
+            dispatch(getTokenAction(formatPhone(readyOldLogin)))
         }
     }, [])
 

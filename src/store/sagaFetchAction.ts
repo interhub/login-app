@@ -1,5 +1,6 @@
 import {
     codeVerifyActionType,
+    getTokenAction,
     getTokenActionType,
     logInActionType,
     registrationActionType,
@@ -21,6 +22,7 @@ import {BodyGuest, RouteParamsFromCodeScreen} from "../types/types";
 import HISTORY from "../variable/HISTORY";
 import ROUTES from "../variable/ROUTES";
 import LOCATION from "../variable/LOCATION";
+import formatPhone from "../func/formatPhone";
 
 const udid: (appName: string) => string = require('udid')
 
@@ -28,7 +30,7 @@ const delay = (time: number) => new Promise(resolve => setTimeout(resolve, time)
 
 // LOGIN
 export const loadLoginAndGetCode = function* ({login}: logInActionType) {
-    let body: BodyLoginType = {login}
+    let body: BodyLoginType = {login: formatPhone(login)}
 
     const logInFetch = (): Promise<ResLoginType<true>> =>
         fetch(LOCATION + '/account/profile/login', {
@@ -60,7 +62,7 @@ export const loadLoginAndGetCode = function* ({login}: logInActionType) {
 
 //REGISTRATION
 export const loadRegistarationAndGetCode = function* ({login}: registrationActionType) {
-    let body: BodyRegType = {login, confirmationGDPRDate: Date.now()}
+    let body: BodyRegType = {login: formatPhone(login), confirmationGDPRDate: Date.now()}
     const regFetch = (): Promise<ResRegType> =>
         fetch(LOCATION + '/account/profile', {
             method: 'post',
@@ -92,7 +94,7 @@ export const loadRegistarationAndGetCode = function* ({login}: registrationActio
 }
 
 //CODE VERIFY
-export const loadCodeVerify = function* ({code, login}: codeVerifyActionType) {
+export const loadCodeVerify = function* ({code, login, registration}: codeVerifyActionType) {
     let attemptId = localStorage.getItem('attemptId') || ''
     let body: BodyConfirmType = {attemptId, code}
     const verifyFetch = (): Promise<ResConfirmType> =>
@@ -104,16 +106,21 @@ export const loadCodeVerify = function* ({code, login}: codeVerifyActionType) {
             },
             body: JSON.stringify(body)
         }).then((r) => r.json())
-
     try {
         yield put(setLoadingAction(LOADING_STATE_NAME.PROCESS))
         const res: ResConfirmType = yield call(verifyFetch)
         if (res.success) {
             yield put(setLoadingAction(LOADING_STATE_NAME.SUCCESS))
             yield call(delay, 1500)
-            let params: RouteParamsFromCodeScreen = {login, registration: true}
             yield put(setLoadingAction(LOADING_STATE_NAME.HIDE))
-            HISTORY.push({pathname: ROUTES.LOG_IN, state: params});
+            if (registration) {
+                let params: RouteParamsFromCodeScreen = {login, registration: true}
+                HISTORY.push({pathname: ROUTES.LOG_IN, state: params});
+            } else {
+                //INSTANT LOGIN GET TOKEN
+                yield put(showTopMessage({message: {isRed: false, text: 'Выполняется вход', visible: true}}))
+                yield put(getTokenAction(login))
+            }
         } else {
             throw new Error(res.message || 'Ошибка')
         }
