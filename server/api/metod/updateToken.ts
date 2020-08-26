@@ -1,14 +1,16 @@
 import database, {TABLES} from "../../db/database";
 import crypto from 'crypto'
-import SECRET from "../../config/SECRET";
 import {TokenType} from "../../types/types";
 
-export default (login: string) => {
-    let newToken = crypto.randomBytes(32).toString()
-    let tokenUpdate = database.update(TABLES.token, {login}, {token: newToken})
-    if(!tokenUpdate){
-        database.add<TokenType>(TABLES.token, {token: newToken, refresh_token:''})
+export default function (login: string): boolean {
+    let token = crypto.randomBytes(32).toString()
+    let isExistToken = this.checkToken(login)
+    if (isExistToken) {
+        database.update<{ token: string }>(TABLES.token, {login}, {token})
+        return true
+    } else {
+        let refresh_token = crypto.randomBytes(32).toString()
+        database.add<TokenType>(TABLES.token, {token, refresh_token, login})
     }
-    console.log(newToken,'NEW TOKEN')
-
+    return false
 }

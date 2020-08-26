@@ -23,7 +23,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 api.registration('89622639809')
-api.registration('89622639809')
+api.registration('mail.ru')
 console.log(database.getAll())
 
 app.get('/', (req, res) => {

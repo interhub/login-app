@@ -1,4 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = (login, code) => {
-};
+function default_1(login, code) {
+}
+exports.default = default_1;

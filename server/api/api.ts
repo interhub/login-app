@@ -6,22 +6,21 @@ import checkToken from "./metod/checkToken";
 import updateToken from "./metod/updateToken";
 
 class API {
-    public login: typeof login
-    public registration: typeof registration
-    public getCode: typeof getCode
-    public verifyUserByCode: typeof verifyUserByCode
-    public updateToken: typeof updateToken
-    public checkToken: typeof checkToken
+    public login: typeof login;
+    public registration: typeof registration;
+    public getCode: typeof getCode;
+    private updateToken: typeof updateToken;
+    private checkToken: typeof checkToken;
+    public verifyUserByCode: typeof verifyUserByCode;
 
     constructor() {
-        this.login = login
-        this.registration = registration
-        this.getCode = getCode
-        this.verifyUserByCode = verifyUserByCode
-        this.checkToken = checkToken
-        this.updateToken = updateToken
+        this.login = login.bind(this)
+        this.registration = registration.bind(this)
+        this.getCode = getCode.bind(this)
+        this.verifyUserByCode = verifyUserByCode.bind(this)
+        this.updateToken = updateToken.bind(this)
+        this.checkToken = checkToken.bind(this)
     }
-
 }
 
 export default new API()

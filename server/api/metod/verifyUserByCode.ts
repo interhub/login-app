@@ -1,3 +1,3 @@
-export default (login: string, code: string)=>{
+export default function (login: string, code: string) {
 
 }

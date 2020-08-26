@@ -7,19 +7,19 @@ export const enum TABLES {
 }
 
 class Databse {
-    tables = {
+    private tables = {
         key: [],
         user: [],
         token: []
     }
 
-    findIndex(table: TABLES, param: Object): number {
+    private findIndex(table: TABLES, param: Object): number {
         this.addTable(table)
         let key = Object.keys(param)[0]
         return this.tables[table].findIndex((obj: any) => obj[key] === param[key])
     }
 
-    addTable(table: TABLES | string) {
+    private addTable(table: TABLES | string) {
         if (!this.tables[table]) {
             this.tables[table] = []
         }
@@ -38,13 +38,13 @@ class Databse {
         return true
     }
 
-    get<T>(table: TABLES, param: DataType extends T ? T : null): Object | null {
+    get<T>(table: TABLES, param: DataType extends T ? T : null): DataType extends T ? DataType : null {
         this.addTable(table)
         let key = Object.keys(param)[0];
         return this.tables[table]?.find((obj: any) => obj[key] === param[key]) || null
     }
 
-    update(table: TABLES, param: Object, newData: Object): boolean {
+    update<T>(table: TABLES, param: Object, newData: DataType extends T ? T : null): boolean {
         this.addTable(table)
         let key = Object.keys(param)[0];
         let newKey = Object.keys(newData)[0];

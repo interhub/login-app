@@ -11,12 +11,12 @@ const checkToken_1 = __importDefault(require("./metod/checkToken"));
 const updateToken_1 = __importDefault(require("./metod/updateToken"));
 class API {
     constructor() {
-        this.login = login_1.default;
-        this.registration = registration_1.default;
-        this.getCode = getCode_1.default;
-        this.verifyUserByCode = verifyUserByCode_1.default;
-        this.checkToken = checkToken_1.default;
-        this.updateToken = updateToken_1.default;
+        this.login = login_1.default.bind(this);
+        this.registration = registration_1.default.bind(this);
+        this.getCode = getCode_1.default.bind(this);
+        this.verifyUserByCode = verifyUserByCode_1.default.bind(this);
+        this.updateToken = updateToken_1.default.bind(this);
+        this.checkToken = checkToken_1.default.bind(this);
     }
 }
 exports.default = new API();

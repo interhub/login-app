@@ -25,7 +25,7 @@ app.use(cors_1.default());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 api_1.default.registration('89622639809');
-api_1.default.registration('89622639809');
+api_1.default.registration('mail.ru');
 console.log(database_1.default.getAll());
 app.get('/', (req, res) => {
     res.send('SERVAK)))))');
