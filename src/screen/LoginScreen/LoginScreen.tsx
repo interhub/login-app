@@ -93,9 +93,7 @@ const LoginScreen = ({loading}: { loading: LoadingType }) => {
         if (!checkValidate(true)) {
             return
         }
-        let params: RouteParamsFromCodeScreen = {login, registration: false}
         dispatch(logInAction(login))
-        // history.push({pathname: ROUTES.CODE, state: params})
     }
 
     return <LoginScreenContainer>
