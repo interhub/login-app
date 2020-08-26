@@ -1,23 +1,13 @@
 import {fork, takeEvery} from "redux-saga/effects";
 import ACTION from "./actionName";
-import {loadLoginAndGetCode} from "./sagaFetchAction";
+import {loadLoginAndGetCode, loadRegistarationAndGetCode} from "./sagaFetchAction";
 
-
-//2
-// function* loadLoginAndGetCode() {
-//     try {
-//         const res: ResLoginType<true> = yield call(logInFetch)
-//         yield put(setUserAction(user))
-//     } catch (e) {
-//         yield put(logOutAction())
-//     }
-
-
-function* loadUser() {
+function* loadActions() {
     yield takeEvery(ACTION.LOG_IN, loadLoginAndGetCode)
+    yield takeEvery(ACTION.REGISTRATION, loadRegistarationAndGetCode)
 }
 
 export const rootSaga = function* () {
     console.log('rootSaga')
-    yield fork(loadUser)
+    yield fork(loadActions)
 }

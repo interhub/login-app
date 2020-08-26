@@ -7,7 +7,7 @@ import replaceToPhone from "../../func/replaceToPhone";
 import COLOR from "../../variable/COLOR";
 import {HiOutlineCheck} from 'react-icons/hi'
 import formatPhone from "../../func/formatPhone";
-import {setLoadingAction, showTopMessage} from "../../store/actions";
+import {registrationAction, setLoadingAction, showTopMessage} from "../../store/actions";
 import {connect, useDispatch} from "react-redux";
 import ROUTES from "../../variable/ROUTES";
 import {useHistory} from "react-router";
@@ -135,8 +135,7 @@ const RegScreen = ({loading}: { loading: LoadingType }) => {
         if (!checkValidate(true)) {
             return
         }
-        let params: RouteParamsFromCodeScreen = {login, registration: true}
-        history.push({pathname: ROUTES.CODE, state: params})
+        dispatch(registrationAction(login))
     }
 
     return <RegScreenContainer>

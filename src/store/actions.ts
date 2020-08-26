@@ -29,5 +29,12 @@ export const showTopMessage = ({message}: { message: MessageType }): showTopMess
 export type setLoadingActionType = { type: ACTION.SET_LOADING, loading: LoadingType }
 export const setLoadingAction = (state_name: LOADING_STATE_NAME): setLoadingActionType => ({
     type: ACTION.SET_LOADING,
-    loading : loadingStateMachine(state_name)
+    loading: loadingStateMachine(state_name)
+})
+
+
+export type registrationActionType = { type: ACTION.REGISTRATION, login: string }
+export const registrationAction = (login: string): registrationActionType => ({
+    type: ACTION.REGISTRATION,
+    login
 })

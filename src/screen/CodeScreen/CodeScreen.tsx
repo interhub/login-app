@@ -62,18 +62,20 @@ const CodeScreen: React.FC<any> = ({location, loading}: { location: Location<Rou
         <p>{`Введите код из письма, отправленный на почту`} <br/> {login}</p>
 
     const inputRef: React.RefObject<HTMLInputElement> = useRef(null)
-    useEffect(() => {
-        if (loading.success) {
-            setTimeout(() => {
-                if (registration) {
-                    //TODO ADD
-                    histoty.push({pathname: ROUTES.START, state: {}})
-                } else {
-                    histoty.push({pathname: ROUTES.PROFILE, state: {}})
-                }
-            }, 1500)
-        }
-    }, [loading])
+
+    //TODO REDIRECT
+    // useEffect(() => {
+    //     if (loading.success) {
+    //         setTimeout(() => {
+    //             if (registration) {
+    //                 histoty.push({pathname: ROUTES.START, state: {}})
+    //             } else {
+    //                 histoty.push({pathname: ROUTES.PROFILE, state: {}})
+    //             }
+    //         }, 1500)
+    //     }
+    // }, [loading])
+
     useEffect(() => {
         if (code.length === 4) {
             //TODO LOAD REUEST SERVER
