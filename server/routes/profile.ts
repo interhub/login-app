@@ -25,7 +25,7 @@ router.post('/login', (req: Request, res: Response) => {
     res.send({...data})
 })
 //VALIDATE CODE
-router.post('/confirm', (req: Request, res: Response) => {
+router.post('/login/confirm', (req: Request, res: Response) => {
     const {code}: BodyConfirmType = req.body;
     let data = api.verifyUserByCode(code)
     res.send({...data})
