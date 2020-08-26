@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import BackHeaderTitle from "../../comps/BackHeaderTitle";
 import ButtonNext from "../../comps/ButtonNext";
@@ -10,11 +10,11 @@ import validator from 'validator';
 import replaceToPhone from "../../func/replaceToPhone";
 import formatPhone from "../../func/formatPhone";
 import {connect, useDispatch} from "react-redux";
-import {logInAction, setLoadingAction, showTopMessage} from "../../store/actions";
-import {useHistory} from 'react-router'
+import {getTokenAction, logInAction, setLoadingAction, showTopMessage} from "../../store/actions";
 import {AllState, LoadingType, RouteParamsFromCodeScreen} from "../../types/types";
 import LoaderAnimate from "../../comps/LoaderAnimate";
 import {LOADING_STATE_NAME} from "../../variable/LOADING_STATE";
+import {Location} from "history";
 
 const LoginScreenContainer = styled.div``
 
@@ -51,12 +51,27 @@ text-align: center;
 `
 
 
-const LoginScreen = ({loading}: { loading: LoadingType }) => {
+const LoginScreen: React.FC<any> = ({loading, location}: { loading: LoadingType, location: Location<RouteParamsFromCodeScreen>, }) => {
+
+    //IF OPEN AFTER REGISTRATION
+    const readyOldLogin: string = location?.state?.login;
+    useEffect(() => {
+        if (readyOldLogin) {
+            dispatch(showTopMessage({
+                message: {
+                    isRed: false,
+                    text: 'Аккаунт создан, выполняем вход в личный кабинет',
+                    visible: true
+                }
+            }))
+            setLogin(readyOldLogin)
+            dispatch(getTokenAction(readyOldLogin))
+        }
+    }, [])
+
     const disabled = loading.visible
 
     const dispatch = useDispatch()
-
-    const history = useHistory()
 
     const [login, setLogin] = useState<string>('')
     const [err, setError] = useState<string>('')
@@ -93,6 +108,10 @@ const LoginScreen = ({loading}: { loading: LoadingType }) => {
         if (!checkValidate(true)) {
             return
         }
+        loginDispatch(login)
+    }
+
+    const loginDispatch = (login: string) => {
         dispatch(logInAction(login))
     }
 
@@ -129,7 +148,7 @@ const LoginScreen = ({loading}: { loading: LoadingType }) => {
                 <LoaderAnimate/>
                 {loading.process &&
                 <LoadetText>
-                    Отправляем код подтверждения...
+                    {readyOldLogin ? 'Вход...' : 'Отправляем код подтверждения...'}
                 </LoadetText>}
                 {loading.success &&
                 <LoadetText>

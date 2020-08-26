@@ -53,9 +53,7 @@ const CodeScreen: React.FC<any> = ({location, loading}: { location: Location<Rou
     const [code, setCode] = useState<string>('');
     const registration = location?.state?.registration || false;
     const login = location?.state?.login;
-    if (!login) {
-        histoty.push(ROUTES.START)
-    }
+
     const isPhone = !!formatPhone(login)
     const titleText = isPhone ?
         <p>{`Введите код из SMS, отправленный на номер`} <br/> {login}</p> :
@@ -68,7 +66,7 @@ const CodeScreen: React.FC<any> = ({location, loading}: { location: Location<Rou
     //     if (loading.success) {
     //         setTimeout(() => {
     //             if (registration) {
-    //                 histoty.push({pathname: ROUTES.START, state: {}})
+    //                 histoty.push({pathname: ROUTES.LOGIN, state: {}})
     //             } else {
     //                 histoty.push({pathname: ROUTES.PROFILE, state: {}})
     //             }
@@ -78,12 +76,15 @@ const CodeScreen: React.FC<any> = ({location, loading}: { location: Location<Rou
 
     useEffect(() => {
         if (code.length === 4) {
-            dispatch(codeVerifyAction(code))
+            dispatch(codeVerifyAction(code, login))
             dispatch(setLoadingAction(LOADING_STATE_NAME.SUCCESS))
         }
     }, [code])
 
     useEffect(() => {
+        if (!login) {
+            histoty.push(ROUTES.START)
+        }
         return () => {
             hideLoader()
         }

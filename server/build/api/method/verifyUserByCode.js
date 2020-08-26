@@ -9,6 +9,6 @@ function default_1(code) {
     if (result) {
         database_1.default.remove("key" /* key */, { code });
     }
-    return { result, message: '' };
+    return { result, message: '', };
 }
 exports.default = default_1;

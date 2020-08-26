@@ -47,7 +47,7 @@ router.post('/login', (req: Request, res: Response) => {
 router.post('/login/confirm', (req: Request, res: Response) => {
     const {code}: BodyConfirmType = req.body;
     let result: ResReportType = api.verifyUserByCode(code)
-    let data: ResConfirmType = {...ConfirmUser, ...result}
+    let data: ResConfirmType = {...ConfirmUser, ...result, success: result.result}
     res.send({...data})
 })
 

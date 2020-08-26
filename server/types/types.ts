@@ -25,6 +25,7 @@ export type BodyLoginType = { login: string }
 export type BodyRegType = { login: string, confirmationGDPRDate: number }
 export type BodyConfirmType = { attemptId: string, code: string }
 
+
 //RESPONSES
 
 export type ResReportType = { message: string, result: boolean, code?: string }

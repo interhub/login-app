@@ -1,5 +1,6 @@
 import {
     codeVerifyActionType,
+    getTokenActionType,
     logInActionType,
     registrationActionType,
     setLoadingAction,
@@ -13,12 +14,15 @@ import {
     BodyRegType,
     ResConfirmType,
     ResLoginType,
-    ResRegType
+    ResRegType,
+    TokenType
 } from "../../server/types/types";
-import {RouteParamsFromCodeScreen} from "../types/types";
+import {BodyGuest, RouteParamsFromCodeScreen} from "../types/types";
 import HISTORY from "../variable/HISTORY";
 import ROUTES from "../variable/ROUTES";
 import LOCATION from "../variable/LOCATION";
+
+const udid: (appName: string) => string = require('udid')
 
 const delay = (time: number) => new Promise(resolve => setTimeout(resolve, time));
 
@@ -88,7 +92,7 @@ export const loadRegistarationAndGetCode = function* ({login}: registrationActio
 }
 
 //CODE VERIFY
-export const loadCodeVerify = function* ({code}: codeVerifyActionType) {
+export const loadCodeVerify = function* ({code, login}: codeVerifyActionType) {
     let attemptId = localStorage.getItem('attemptId') || ''
     let body: BodyConfirmType = {attemptId, code}
     const verifyFetch = (): Promise<ResConfirmType> =>
@@ -107,9 +111,9 @@ export const loadCodeVerify = function* ({code}: codeVerifyActionType) {
         if (res.success) {
             yield put(setLoadingAction(LOADING_STATE_NAME.SUCCESS))
             yield call(delay, 1500)
+            let params: RouteParamsFromCodeScreen = {login, registration: true}
             yield put(setLoadingAction(LOADING_STATE_NAME.HIDE))
-            console.log('SUCCESS CODE')
-            // HISTORY.push({pathname: ROUTES.CODE, state: params});
+            HISTORY.push({pathname: ROUTES.LOG_IN, state: params});
         } else {
             throw new Error(res.message || 'Ошибка')
         }
@@ -119,12 +123,34 @@ export const loadCodeVerify = function* ({code}: codeVerifyActionType) {
     }
 }
 
+//GET TOKEN
+export const loadGetToken = function* ({login}: getTokenActionType) {
+    let body = {...BodyGuest, login, udid: udid('login-app') || ''}
+    const verifyFetch = (): Promise<ResConfirmType> =>
+        fetch(LOCATION + '/session/guest', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        }).then((r) => r.json())
+    try {
+        yield put(setLoadingAction(LOADING_STATE_NAME.PROCESS))
+        const res: TokenType = yield call(verifyFetch)
+        if (res.token) {
+            //TODO ADD TOKENS TO COOKIES
+            localStorage.setItem('tokens', JSON.stringify(res))
+            yield put(setLoadingAction(LOADING_STATE_NAME.SUCCESS))
+            yield call(delay, 1500)
+            yield put(setLoadingAction(LOADING_STATE_NAME.HIDE))
+            HISTORY.push({pathname: ROUTES.PROFILE});
+        } else {
+            throw new Error('Ошибка')
+        }
+    } catch (e) {
+        yield put(setLoadingAction(LOADING_STATE_NAME.ERROR))
+        yield put(showTopMessage({message: {isRed: true, text: e.message || 'Ошибка', visible: true}}))
+    }
+}
 
-//2
-// function* loadLoginAndGetCode() {
-//     try {
-//         const res: ResLoginType<true> = yield call(logInFetch)
-//         yield put(setUserAction(user))
-//     } catch (e) {
-//         yield put(logOutAction())
-//     }

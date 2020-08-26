@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import COLOR from "../variable/COLOR";
 import {onInputType} from "../types/types";
@@ -30,9 +30,18 @@ transition: all 0.2s ease;
 pointer-events: none;
 `
 
-export default ({label = '', err = '', callback, onBlur=()=>{}, value}: { label?: string, err: string, callback: (text: string) => void, onBlur: () => void ,value:string}) => {
+export default ({
+                    label = '', err = '', callback, onBlur = () => {
+    }, value
+                }: { label?: string, err: string, callback: (text: string) => void, onBlur: () => void, value: string }) => {
 
     const [empty, setEmpty] = useState<boolean>(true);
+
+    useEffect(() => {
+        if (value !== '') {
+            setEmpty(false)
+        }
+    })
 
     return <div>
         <InputContainer empty={empty} err={err}>
@@ -42,7 +51,8 @@ export default ({label = '', err = '', callback, onBlur=()=>{}, value}: { label?
 
             <InputForm
                 value={value}
-                onChange={()=>{}}
+                onChange={() => {
+                }}
                 onBlur={onBlur}
                 onInput={(e: onInputType) => {
                     let val = e.target.value

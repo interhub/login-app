@@ -54,3 +54,15 @@ export type Body = { login: string }
 export type RouteParamsFromCodeScreen= {login: string, registration: boolean}
 
 export type onInputType = React.ChangeEvent<HTMLInputElement>
+
+export const BodyGuest = {
+    "appVersion": "Web",
+    "brandName": "Web",
+    "lang": "ru",
+    "model": "Web",
+    "osVersion": "Web",
+    "platform": "web",
+    "screenResolution": "Web",
+    udid: "65eeaed8-ce5e-414f-9193-5246b913bdec"
+}
+export type BodyGuestType = typeof BodyGuest & { udid: string }
