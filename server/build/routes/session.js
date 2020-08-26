@@ -10,19 +10,22 @@ const router = express_1.default();
 router.post('/guest', (req, res) => {
     let { login } = req.body;
     let tokenObj = database_1.default.get("token" /* token */, { login });
-    console.log('tokenObj', tokenObj, login, 'login');
     if (!tokenObj) {
         api_1.default.updateToken(null, login);
         tokenObj = database_1.default.get("token" /* token */, { login });
     }
-    console.log(database_1.default.getAll());
     res.send(Object.assign({}, tokenObj));
 });
 router.post('/refresh', (req, res) => {
     const { token } = req.headers;
-    let { login } = database_1.default.get("token" /* token */, { token });
+    if (!token)
+        return console.log('NOT TOKEN');
+    let { login } = database_1.default.get("token" /* token */, { token }) || { login: '' };
     api_1.default.updateToken(token);
-    let newTokenObj = database_1.default.get("token" /* token */, { login });
+    let newTokenObj = database_1.default.get("token" /* token */, { login }) || {
+        result: false,
+        message: ''
+    };
     res.send(Object.assign({}, newTokenObj));
 });
 exports.default = router;

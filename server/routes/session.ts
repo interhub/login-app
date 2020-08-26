@@ -1,5 +1,5 @@
 import express, {Request, Response} from 'express'
-import {TokenType} from "../types/types";
+import {ResReportType, TokenType} from "../types/types";
 import api from "../api/api";
 import database, {TABLES} from "../db/database";
 
@@ -8,20 +8,23 @@ const router = express()
 router.post('/guest', (req: Request, res: Response) => {
     let {login} = req.body
     let tokenObj: TokenType = database.get<{ login: string }>(TABLES.token, {login})
-    console.log('tokenObj',tokenObj, login,'login')
     if (!tokenObj) {
         api.updateToken(null, login)
         tokenObj = database.get<{ login: string }>(TABLES.token, {login})
     }
-    console.log(database.getAll())
     res.send({...tokenObj})
 })
 
 router.post('/refresh', (req: Request, res: Response) => {
     const {token}: any = req.headers
-    let {login} = database.get<{ token: string }>(TABLES.token, {token})
+    if (!token)
+        return console.log('NOT TOKEN')
+    let {login} = database.get<{ token: string }>(TABLES.token, {token}) || {login: ''}
     api.updateToken(token)
-    let newTokenObj: TokenType = database.get<{ login: string }>(TABLES.token, {login})
+    let newTokenObj: TokenType | ResReportType = database.get<{ login: string }>(TABLES.token, {login}) || {
+        result: false,
+        message: ''
+    }
     res.send({...newTokenObj})
 })
 

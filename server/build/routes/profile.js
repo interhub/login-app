@@ -4,11 +4,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const types_1 = require("../types/types");
 const api_1 = __importDefault(require("../api/api"));
+const database_1 = __importDefault(require("../db/database"));
 const router = express_1.default();
 //PROFILE
 router.get('/', (req, res) => {
-    res.send('adwadaw');
+    const { token } = req.headers;
+    let { login } = database_1.default.get("token" /* token */, { token }) || { login: '' };
+    let user = database_1.default.get("user" /* user */, { login });
+    let data = user ? Object.assign(Object.assign({}, user), types_1.ProfileUser) : {
+        result: false,
+        message: ''
+    };
+    res.send(Object.assign({}, data));
 });
 //REGISTRATION
 router.post('/', (req, res) => {

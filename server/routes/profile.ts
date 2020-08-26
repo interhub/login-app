@@ -1,12 +1,28 @@
 import express, {Request, Response} from 'express'
-import {BodyConfirmType, BodyLoginType, BodyRegType} from "../types/types";
+import {
+    BodyConfirmType,
+    BodyLoginType,
+    BodyRegType,
+    ProfileUser,
+    ResProfileType,
+    ResReportType,
+    UserType
+} from "../types/types";
 import api from "../api/api";
+import database, {TABLES} from "../db/database";
 
 const router = express()
 
 //PROFILE
 router.get('/', (req: Request, res: Response) => {
-    res.send('adwadaw')
+    const {token}: any = req.headers
+    let {login} = database.get<{ token: string }>(TABLES.token, {token}) || {login: ''}
+    let user = database.get<{ login: string }>(TABLES.user, {login})
+    let data: ResProfileType & UserType | ResReportType = user ? {...user, ...ProfileUser} : {
+        result: false,
+        message: ''
+    }
+    res.send({...data})
 })
 //REGISTRATION
 router.post('/', (req: Request, res: Response) => {
