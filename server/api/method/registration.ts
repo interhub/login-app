@@ -1,7 +1,7 @@
-import {ResRegType, UserType} from "../../types/types";
+import {ResRegType, ResReportType, UserType} from "../../types/types";
 import database, {TABLES} from "../../db/database";
 
-export default function (login: string): ResRegType {
+export default function (login: string): ResRegType | ResReportType {
     let user: UserType = {
         login,
         name: '',
@@ -13,7 +13,7 @@ export default function (login: string): ResRegType {
         database.add(TABLES.user, {...user})
         this.updateToken('', login)
         let code = this.getCode(login)
-        return {message: '', result: true, code}
+        return {message: '', result: true, code, attemptId: 'a955002f-9166-4a3c-8d1e-c488c9d772b7'} //TODO FIX attemptId
     }
     //fail - user not exist
     return {message: 'Не удалось создать аккаунт', result: false}

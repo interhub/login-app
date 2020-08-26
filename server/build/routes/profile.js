@@ -38,7 +38,8 @@ router.post('/login', (req, res) => {
 //VALIDATE CODE
 router.post('/login/confirm', (req, res) => {
     const { code } = req.body;
-    let data = api_1.default.verifyUserByCode(code);
+    let result = api_1.default.verifyUserByCode(code);
+    let data = Object.assign(Object.assign({}, types_1.ConfirmUser), result);
     res.send(Object.assign({}, data));
 });
 exports.default = router;

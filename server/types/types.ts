@@ -32,18 +32,18 @@ export type ResReportType = { message: string, result: boolean, code?: string }
 export type ResLoginType<Success> = ResReportType & (Success extends true ?
     { attemptId: string, channel: string } : {})
 
-export type ResRegType = ResReportType
+export type ResRegType = ResReportType & { attemptId: "a955002f-9166-4a3c-8d1e-c488c9d772b7" }
 
 export const ConfirmUser = {
     "success": true,
-    "id": "some id",
+    "id": "1231231",
     "krrParams": {
-        "krrAccessToken": "",
-        "krrRefreshToken": "",
-        "loginConfirmCookie": ""
+        "krrAccessToken": "12313",
+        "krrRefreshToken": "123123",
+        "loginConfirmCookie": "1231231231231"
     }
 }
-export type ResConfirmType = typeof ConfirmUser
+export type ResConfirmType = typeof ConfirmUser & ResReportType
 
 export const ProfileUser = {
     "profileData": {

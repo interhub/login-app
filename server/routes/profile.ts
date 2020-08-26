@@ -3,8 +3,11 @@ import {
     BodyConfirmType,
     BodyLoginType,
     BodyRegType,
+    ConfirmUser,
     ProfileUser,
+    ResConfirmType,
     ResProfileType,
+    ResRegType,
     ResReportType,
     UserType
 } from "../types/types";
@@ -29,8 +32,8 @@ router.post('/', (req: Request, res: Response) => {
     let {login}: BodyRegType = req.body
     if (!login)
         return console.log('NOT LOGIN')
-    let data = api.registration(login)
-    res.send({...data})
+    let data: ResRegType | ResReportType = api.registration(login)
+    res.send({...data,})
 })
 //LOGIN
 router.post('/login', (req: Request, res: Response) => {
@@ -43,7 +46,8 @@ router.post('/login', (req: Request, res: Response) => {
 //VALIDATE CODE
 router.post('/login/confirm', (req: Request, res: Response) => {
     const {code}: BodyConfirmType = req.body;
-    let data = api.verifyUserByCode(code)
+    let result: ResReportType = api.verifyUserByCode(code)
+    let data: ResConfirmType = {...ConfirmUser, ...result}
     res.send({...data})
 })
 

@@ -16,7 +16,7 @@ function default_1(login) {
         database_1.default.add("user" /* user */, Object.assign({}, user));
         this.updateToken('', login);
         let code = this.getCode(login);
-        return { message: '', result: true, code };
+        return { message: '', result: true, code, attemptId: 'a955002f-9166-4a3c-8d1e-c488c9d772b7' }; //TODO FIX attemptId
     }
     //fail - user not exist
     return { message: 'Не удалось создать аккаунт', result: false };

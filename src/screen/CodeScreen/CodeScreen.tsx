@@ -9,7 +9,7 @@ import LoaderAnimate from "../../comps/LoaderAnimate";
 import ROUTES from "../../variable/ROUTES";
 import {useHistory} from "react-router";
 import {LOADING_STATE_NAME} from "../../variable/LOADING_STATE";
-import {setLoadingAction} from "../../store/actions";
+import {codeVerifyAction, setLoadingAction} from "../../store/actions";
 
 const CodeScreenContainer = styled.div``
 
@@ -78,18 +78,23 @@ const CodeScreen: React.FC<any> = ({location, loading}: { location: Location<Rou
 
     useEffect(() => {
         if (code.length === 4) {
-            //TODO LOAD REUEST SERVER
+            dispatch(codeVerifyAction(code))
             dispatch(setLoadingAction(LOADING_STATE_NAME.SUCCESS))
         }
     }, [code])
+
     useEffect(() => {
         return () => {
-            dispatch(setLoadingAction(LOADING_STATE_NAME.HIDE))
+            hideLoader()
         }
     }, [])
 
+    const hideLoader = () => dispatch(setLoadingAction(LOADING_STATE_NAME.HIDE))
+
+
     return <CodeScreenContainer>
         <input autoFocus onInput={(e: onInputType) => {
+            hideLoader()
             setCode(e.target.value)
         }} ref={inputRef} style={{opacity: 0, position: 'fixed', top: -20}} maxLength={4} type="phone"/>
         <BackHeaderTitle title={'Подтверждение'} size={25}/>

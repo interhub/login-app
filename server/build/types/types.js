@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProfileUser = exports.ConfirmUser = void 0;
 exports.ConfirmUser = {
     "success": true,
-    "id": "some id",
+    "id": "1231231",
     "krrParams": {
-        "krrAccessToken": "",
-        "krrRefreshToken": "",
-        "loginConfirmCookie": ""
+        "krrAccessToken": "12313",
+        "krrRefreshToken": "123123",
+        "loginConfirmCookie": "1231231231231"
     }
 };
 exports.ProfileUser = {
