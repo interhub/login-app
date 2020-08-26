@@ -8,12 +8,13 @@ const api_1 = __importDefault(require("../api/api"));
 const database_1 = __importDefault(require("../db/database"));
 const router = express_1.default();
 router.post('/guest', (req, res) => {
-    let { login } = req.body;
+    let { login, udid } = req.body;
     let tokenObj = database_1.default.get("token" /* token */, { login });
     if (!tokenObj) {
         api_1.default.updateToken(null, login);
         tokenObj = database_1.default.get("token" /* token */, { login });
     }
+    database_1.default.update("user" /* user */, { login }, { udid });
     res.send(Object.assign({}, tokenObj));
 });
 router.post('/refresh', (req, res) => {

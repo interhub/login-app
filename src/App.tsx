@@ -10,23 +10,29 @@ import UserProfile from "./screen/UserProfile/UserProfile";
 import CodeScreen from "./screen/CodeScreen/CodeScreen";
 import RegScreen from "./screen/RegScreen/RegScreen";
 import TopBannerMessage from "./comps/TopBannerMessage";
+import {Location} from "history";
 
 const Container = styled.div`
 min-height: 100vh;
 //TODO MOBILE WIDTH
 `
 
-function App({user}: { user: any, }) {
+function App({location}: { location: Location }) {
 
     // const dispatch = useDispatch()
     let history = useHistory();
 
     useEffect(() => {
-        //TODO CHECK USER LOGIN TOKIN AND REDIRECTING TO PROFILE OR LOGIN
-        // if (true) {
-        //     history.push(ROUTES.LOG_IN)
-        // }
-    }, [])
+        console.log(location.pathname, 'PATCH')
+        const allowStartPatch = [ROUTES.START, ROUTES.LOG_IN, ROUTES.REG, ROUTES.CODE]
+        const isAuth = !!localStorage.getItem('tokens')
+        const isAllowStartPatch: boolean = allowStartPatch.some((route) => route === location.pathname)
+        if (isAllowStartPatch) {
+            if (isAuth) {
+                history.push(ROUTES.PROFILE)
+            }
+        }
+    }, [location])
 
     return (
         <Container>
@@ -56,9 +62,7 @@ function App({user}: { user: any, }) {
     );
 }
 
-const mapStateToProps = (state: AllState) => {
-    //TODO all ConnectedRouter
-    return {...state.saga, ...state.router}
-}
+const mapStateToProps = (state: AllState) => ({...state.saga, ...state.router})
+
 
 export default connect(mapStateToProps)(App);

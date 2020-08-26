@@ -146,7 +146,7 @@ export const loadGetUserData = function* ({login}: getTokenActionType) {
     try {
         yield put(setLoadingAction(LOADING_STATE_NAME.PROCESS))
         const res: ResProfileType & ResReportType | any = yield call(getUserFetch)
-        console.log(res,'RESPONSE')
+        console.log(res, 'RESPONSE')
         if (res.result) {
             yield put(setUserAction(res))
             yield put(setLoadingAction(LOADING_STATE_NAME.HIDE))
@@ -156,13 +156,16 @@ export const loadGetUserData = function* ({login}: getTokenActionType) {
     } catch (e) {
         yield put(setLoadingAction(LOADING_STATE_NAME.ERROR))
         yield put(showTopMessage({message: {isRed: true, text: e.message || 'Ошибка', visible: true}}))
+        HISTORY.push({pathname: ROUTES.LOG_IN});
+        yield call(delay, 1500)
+        yield put(setLoadingAction(LOADING_STATE_NAME.HIDE))
         console.log('GET USER DATA ERR')
     }
 }
 
 //GET TOKEN
 export const loadGetToken = function* ({login}: getTokenActionType) {
-    let body = {...BodyGuest, login, udid: udid('login-app') || ''}
+    let body = {...BodyGuest, login: formatPhone(login), udid: udid('login-app') || ''}
     const verifyFetch = (): Promise<ResConfirmType> =>
         fetch(LOCATION + '/session/guest', {
             method: 'post',
@@ -188,6 +191,15 @@ export const loadGetToken = function* ({login}: getTokenActionType) {
     } catch (e) {
         yield put(setLoadingAction(LOADING_STATE_NAME.ERROR))
         yield put(showTopMessage({message: {isRed: true, text: e.message || 'Ошибка', visible: true}}))
+        console.log('GET TOKEN ERR')
     }
 }
+
+//LOGOUT EXITE
+export const loadLogOut = function* () {
+    localStorage.removeItem('tokens')
+    HISTORY.push({pathname: ROUTES.START});
+}
+
+
 

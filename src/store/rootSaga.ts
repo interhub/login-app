@@ -5,9 +5,9 @@ import {
     loadGetToken,
     loadGetUserData,
     loadLoginAndGetCode,
+    loadLogOut,
     loadRegistarationAndGetCode
 } from "./sagaFetchAction";
-import {getUserDataAction} from "./actions";
 
 function* loadActions() {
     yield takeEvery(ACTION.LOG_IN, loadLoginAndGetCode)
@@ -15,6 +15,7 @@ function* loadActions() {
     yield takeEvery(ACTION.CODE_VERIFY, loadCodeVerify)
     yield takeEvery(ACTION.GET_TOKEN, loadGetToken)
     yield takeEvery(ACTION.GET_USER, loadGetUserData)
+    yield takeEvery(ACTION.LOG_OUT, loadLogOut)
 }
 
 export const rootSaga = function* () {

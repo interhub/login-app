@@ -39,7 +39,6 @@ class Databse {
     update(table, param, newData) {
         var _a, _b, _c, _d, _e, _f;
         this.addTable(table);
-        let key = Object.keys(param)[0];
         let newKey = Object.keys(newData)[0];
         let index = this.findIndex(table, param);
         let isExist = !!((_c = (_b = (_a = this.tables) === null || _a === void 0 ? void 0 : _a[table]) === null || _b === void 0 ? void 0 : _b[index]) === null || _c === void 0 ? void 0 : _c[newKey]);

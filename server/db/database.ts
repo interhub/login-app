@@ -46,7 +46,6 @@ class Databse {
 
     update<T>(table: TABLES, param: Object, newData: DataType extends T ? T : null): boolean {
         this.addTable(table)
-        let key = Object.keys(param)[0];
         let newKey = Object.keys(newData)[0];
         let index = this.findIndex(table, param)
         let isExist = !!this.tables?.[table]?.[index]?.[newKey]

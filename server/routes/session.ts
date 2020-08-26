@@ -6,12 +6,13 @@ import database, {TABLES} from "../db/database";
 const router = express()
 
 router.post('/guest', (req: Request, res: Response) => {
-    let {login} = req.body
+    let {login, udid} = req.body
     let tokenObj: TokenType = database.get<{ login: string }>(TABLES.token, {login})
     if (!tokenObj) {
         api.updateToken(null, login)
         tokenObj = database.get<{ login: string }>(TABLES.token, {login})
     }
+    database.update<{ udid: string }>(TABLES.user, {login}, {udid})
     res.send({...tokenObj})
 })
 

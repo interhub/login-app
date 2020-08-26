@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ProfileUser = exports.ConfirmUser = void 0;
 exports.ConfirmUser = {
     "success": true,
     "id": "1231231",
