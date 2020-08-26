@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="04f21e72-63fa-412e-91b4-5d7df9d8f6e0" name="Default Changelist" comment="add working get profile api" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="tsconfig.json" />
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Turchenko" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1gavU8F6JyWHt2n2MTlFzthbcyx" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2020.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\lesson\saga\login-app\server\build" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.dev">
+    <configuration name="build-server" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/../package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build-server" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="run-server" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/../package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="run-server" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="watch" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="watch" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.dev" />
+        <item itemvalue="npm.watch" />
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.build-server" />
+        <item itemvalue="npm.run-server" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="04f21e72-63fa-412e-91b4-5d7df9d8f6e0" name="Default Changelist" comment="" />
+      <created>1598365530103</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598365530103</updated>
+      <workItem from="1598365532259" duration="13942000" />
+      <workItem from="1598390461068" duration="8287000" />
+      <workItem from="1598399013157" duration="7000" />
+      <workItem from="1598429741751" duration="29356000" />
+    </task>
+    <task id="LOCAL-00001" summary="add server pattern">
+      <created>1598379438874</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1598379438874</updated>
+    </task>
+    <task id="LOCAL-00002" summary="database success config and work api and typescript compiles">
+      <created>1598397825467</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1598397825467</updated>
+    </task>
+    <task id="LOCAL-00003" summary="a">
+      <created>1598398323551</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1598398323551</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add get typings generic">
+      <created>1598439355974</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1598439355975</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add api typings">
+      <created>1598442734348</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1598442734348</updated>
+    </task>
+    <task id="LOCAL-00006" summary="create profile api routes works">
+      <created>1598450321762</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1598450321762</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add session works">
+      <created>1598453546073</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1598453546073</updated>
+    </task>
+    <task id="LOCAL-00008" summary="debug api">
+      <created>1598453691118</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1598453691118</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add working get profile api">
+      <created>1598460232961</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1598460232961</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="add server pattern" />
+    <MESSAGE value="database success config and work api and typescript compiles" />
+    <MESSAGE value="a" />
+    <MESSAGE value="add get typings generic" />
+    <MESSAGE value="add api typings" />
+    <MESSAGE value="create profile api routes works" />
+    <MESSAGE value="add session works" />
+    <MESSAGE value="debug api" />
+    <MESSAGE value="add working get profile api" />
+    <option name="LAST_COMMIT_MESSAGE" value="add working get profile api" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="0" y="44" key="#Deployment" timestamp="1598398310037">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="0" y="44" key="#Deployment/0.0.1366.728@0.0.1366.728" timestamp="1598398310037" />
+    <state x="463" y="118" key="FileChooserDialogImpl" timestamp="1598460278615">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1598460278615" />
+    <state width="289" height="580" key="GridCell.Tab.0.bottom" timestamp="1598460281661">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="289" height="580" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1598460281661" />
+    <state width="289" height="580" key="GridCell.Tab.0.center" timestamp="1598460281661">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="289" height="580" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1598460281661" />
+    <state width="289" height="580" key="GridCell.Tab.0.left" timestamp="1598460281661">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="289" height="580" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1598460281661" />
+    <state width="289" height="580" key="GridCell.Tab.0.right" timestamp="1598460281661">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="289" height="580" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1598460281661" />
+    <state x="184" y="8" key="SettingsEditor" timestamp="1598365821776">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="8" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1598365821776" />
+    <state x="275" y="78" key="Vcs.Push.Dialog.v2" timestamp="1598460234476">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="78" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1598460234476" />
+    <state x="490" y="273" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598398346833">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="490" y="273" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728@0.0.1366.728" timestamp="1598398346833" />
+    <state x="391" y="83" width="583" height="562" key="find.popup" timestamp="1598439405061">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="391" y="83" width="583" height="562" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1598439405061" />
+    <state x="409" y="108" key="refactoring.ChangeSignatureDialog" timestamp="1598447072246">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="409" y="108" key="refactoring.ChangeSignatureDialog/0.0.1366.728@0.0.1366.728" timestamp="1598447072246" />
+    <state x="339" y="162" key="run.anything.popup" timestamp="1598396094785">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1598396094785" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1598459813059">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1598459813059" />
+  </component>
+</project>
