@@ -3,6 +3,7 @@ export type UserType = {
     login: string
     name: string
     create_at: number
+    udid: string
 }
 
 export type TokenType = {

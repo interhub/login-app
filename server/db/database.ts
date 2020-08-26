@@ -31,7 +31,7 @@ class Databse {
         return true
     }
 
-    remove(table: TABLES, param: Object): boolean {
+    remove<T>(table: TABLES, param: DataType extends T ? T : null): boolean {
         this.addTable(table)
         let index = this.findIndex(table, param)
         this.tables[table]?.splice(index, 1);
