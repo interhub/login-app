@@ -7,29 +7,22 @@ const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const PORT_1 = __importDefault(require("./config/PORT"));
-const api_1 = __importDefault(require("./api/api"));
-const database_1 = __importDefault(require("./db/database"));
-//TODO DATABASE TEST DOCS
-// console.log(DB.getAll())
-// DB.add('tabs', {id: 12})
-// DB.add('tabs', {id: 15})
-// console.log(DB.getAll())
-// DB.update('tabs', {id: 15}, {name: 16})
-// console.log(DB.getAll())
-// DB.remove('tabs', {name: 16})
-// console.log(DB.getAll())
-// API.registration('hi')
+const profile_1 = __importDefault(require("./routes/profile"));
+const session_1 = __importDefault(require("./routes/session"));
 const app = express_1.default();
 app.use(cookie_parser_1.default());
 app.use(cors_1.default());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-api_1.default.registration('89622639809');
-api_1.default.registration('mail.ru');
-console.log(database_1.default.getAll());
+// let data= api.registration('89622639809')
+// console.log(data)
+// console.log(api.verifyUserByCode(data.code))
+// console.log(database.getAll())
 app.get('/', (req, res) => {
-    res.send('SERVAK)))))');
+    res.send('TEST SERVER');
 });
+app.use('/account/profile', profile_1.default);
+app.use('/session', session_1.default);
 app.listen(PORT_1.default, () => {
     console.log('SERVER START ON PORT', PORT_1.default);
 });

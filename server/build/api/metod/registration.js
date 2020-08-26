@@ -13,7 +13,10 @@ function default_1(login) {
     let isExist = database_1.default.get("user" /* user */, { login });
     if (!isExist) {
         database_1.default.add("user" /* user */, Object.assign({}, user));
+        this.updateToken(login);
+        return { message: '', result: true };
     }
-    this.updateToken(login);
+    //fail - user not exist
+    return { message: 'Не удалось создать аккаунт', result: false };
 }
 exports.default = default_1;

@@ -1,17 +1,19 @@
-import login from "./metod/login";
-import registration from "./metod/registration";
-import getCode from "./metod/getCode";
-import verifyUserByCode from "./metod/verifyUserByCode";
-import checkToken from "./metod/checkToken";
-import updateToken from "./metod/updateToken";
+import login from "./method/login";
+import registration from "./method/registration";
+import getCode from "./method/getCode";
+import verifyUserByCode from "./method/verifyUserByCode";
+import checkToken from "./method/checkToken";
+import updateToken from "./method/updateToken";
+import checkUser from "./method/checkUser";
 
 class API {
     public login: typeof login;
     public registration: typeof registration;
-    public getCode: typeof getCode;
-    private updateToken: typeof updateToken;
-    private checkToken: typeof checkToken;
+    private getCode: typeof getCode;
+    public updateToken: typeof updateToken;
+    public checkToken: typeof checkToken;
     public verifyUserByCode: typeof verifyUserByCode;
+    private checkUser: typeof checkUser;
 
     constructor() {
         this.login = login.bind(this)
@@ -20,6 +22,7 @@ class API {
         this.verifyUserByCode = verifyUserByCode.bind(this)
         this.updateToken = updateToken.bind(this)
         this.checkToken = checkToken.bind(this)
+        this.checkUser = checkUser.bind(this)
     }
 }
 

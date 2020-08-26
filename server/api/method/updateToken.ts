@@ -4,7 +4,7 @@ import {TokenType} from "../../types/types";
 
 export default function (login: string): boolean {
     let token = crypto.randomBytes(32).toString()
-    let isExistToken = this.checkToken(login)
+    let isExistToken: boolean = this.checkToken(login)
     if (isExistToken) {
         database.update<{ token: string }>(TABLES.token, {login}, {token})
         return true
