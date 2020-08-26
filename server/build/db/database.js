@@ -4,7 +4,8 @@ class Databse {
     constructor() {
         this.tables = {
             key: [],
-            user: []
+            user: [],
+            token: []
         };
     }
     findIndex(table, param) {
@@ -12,7 +13,7 @@ class Databse {
         let key = Object.keys(param)[0];
         return this.tables[table].findIndex((obj) => obj[key] === param[key]);
     }
-    addTable(table = '') {
+    addTable(table) {
         if (!this.tables[table]) {
             this.tables[table] = [];
         }
@@ -30,18 +31,24 @@ class Databse {
         return true;
     }
     get(table, param) {
+        var _a;
         this.addTable(table);
         let key = Object.keys(param)[0];
-        return this.tables[table].find((obj) => obj[key] === param[key]) || [];
+        return ((_a = this.tables[table]) === null || _a === void 0 ? void 0 : _a.find((obj) => obj[key] === param[key])) || null;
     }
     update(table, param, newData) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e, _f;
         this.addTable(table);
         let key = Object.keys(param)[0];
         let newKey = Object.keys(newData)[0];
         let index = this.findIndex(table, param);
-        // @ts-ignore
-        return (_c = (_b = (_a = this.tables) === null || _a === void 0 ? void 0 : _a[table]) === null || _b === void 0 ? void 0 : _b[index]) === null || _c === void 0 ? void 0 : _c[newKey] = newData[newKey];
+        let isExist = !!((_c = (_b = (_a = this.tables) === null || _a === void 0 ? void 0 : _a[table]) === null || _b === void 0 ? void 0 : _b[index]) === null || _c === void 0 ? void 0 : _c[newKey]);
+        if (isExist) {
+            // @ts-ignore
+            (_f = (_e = (_d = this.tables) === null || _d === void 0 ? void 0 : _d[table]) === null || _e === void 0 ? void 0 : _e[index]) === null || _f === void 0 ? void 0 : _f[newKey] = newData[newKey];
+            return true;
+        }
+        return false;
     }
     getAll() {
         return this.tables;

@@ -16,7 +16,6 @@ const ButtonNext = styled.div<{ disabled: boolean }>`
  color: ${({color}) => color};
  outline: 1px solid ${({color}) => color};
  };
- 
 `
 
 const ButtonTitle = styled.p`

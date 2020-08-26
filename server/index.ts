@@ -1,7 +1,9 @@
 import cors from 'cors'
 import express from 'express'
-import DB from "./db/database"
-import API from "./api/api"
+import cookieParser from 'cookie-parser'
+import PORT from "./config/PORT";
+import api from "./api/api";
+import database from "./db/database";
 
 //TODO DATABASE TEST DOCS
 // console.log(DB.getAll())
@@ -15,17 +17,21 @@ import API from "./api/api"
 // API.registration('hi')
 
 const app = express()
+app.use(cookieParser())
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+
+api.registration('89622639809')
+api.registration('89622639809')
+console.log(database.getAll())
 
 app.get('/', (req, res) => {
     res.send('SERVAK)))))')
 })
 
-const PORT = 3001
 app.listen(PORT, () => {
-    console.log('SERVER START ON PORT ', PORT)
+    console.log('SERVER START ON PORT', PORT)
 })
 
 
