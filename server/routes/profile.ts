@@ -17,7 +17,7 @@ import database, {TABLES} from "../db/database";
 const router = express()
 
 //PROFILE
-router.get('/', (req: Request, res: Response) => {
+router.get('/', (req: Request, res: Response, next) => {
     const {token}: any = req.headers
     let {login} = database.get<{ token: string }>(TABLES.token, {token}) || {login: ''}
     let user = database.get<{ login: string }>(TABLES.user, {login})
@@ -29,6 +29,7 @@ router.get('/', (req: Request, res: Response) => {
                 message: ''
             }
     res.send({...data})
+    next()
 })
 //REGISTRATION
 router.post('/', (req: Request, res: Response) => {

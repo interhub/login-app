@@ -12,22 +12,29 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
+app.use('/account/profile', profile_router)
+app.use('/session', session_router)
+
 app.get('*', (req, res) => {
     // console.log(database.getAll())
-    try{
-        res.sendFile(process.cwd() + '/build' + req.url)
-    }catch (e) {
-        res.sendFile(process.cwd() + '/build/index.html')
+    const sendHTML = () => res.sendFile(process.cwd() + '/build/index.html')
+
+    try {
+        if (req.url.includes('.js') || req.url.includes('.css')) {
+            res.sendFile(process.cwd() + '/build' + req.url)
+        } else {
+            sendHTML()
+        }
+    } catch (e) {
+        sendHTML()
     }
 })
 
-app.use('/account/profile', profile_router)
-app.use('/session', session_router)
 
 app.listen(PORT, () => {
     console.log('SERVER START ON PORT', PORT)
     setInterval(function () {
-        fetch("https://login-production.herokuapp.com")
+        fetch("https://login-production.herokuapp.com/test")
             .then((r) => {
                 console.log('update')
             })

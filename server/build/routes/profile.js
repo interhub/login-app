@@ -9,7 +9,7 @@ const api_1 = __importDefault(require("../api/api"));
 const database_1 = __importDefault(require("../db/database"));
 const router = express_1.default();
 //PROFILE
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
     const { token } = req.headers;
     let { login } = database_1.default.get("token" /* token */, { token }) || { login: '' };
     let user = database_1.default.get("user" /* user */, { login });
@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
             message: ''
         };
     res.send(Object.assign({}, data));
+    next();
 });
 //REGISTRATION
 router.post('/', (req, res) => {
