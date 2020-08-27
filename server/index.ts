@@ -20,7 +20,7 @@ app.get('*', (req, res) => {
     const sendHTML = () => res.sendFile(process.cwd() + '/build/index.html')
 
     try {
-        if (req.url.includes('.js') || req.url.includes('.css')) {
+        if  (req.url.includes('.js') || req.url.includes('.css')) {
             res.sendFile(process.cwd() + '/build' + req.url)
         } else {
             sendHTML()
