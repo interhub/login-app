@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import PORT from "./config/PORT";
 import profile_router from "./routes/profile";
 import session_router from "./routes/session";
+import fetch from "node-fetch";
 
 const app = express()
 app.use(cookieParser())

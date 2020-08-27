@@ -9,6 +9,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const PORT_1 = __importDefault(require("./config/PORT"));
 const profile_1 = __importDefault(require("./routes/profile"));
 const session_1 = __importDefault(require("./routes/session"));
+const node_fetch_1 = __importDefault(require("node-fetch"));
 const app = express_1.default();
 app.use(cookie_parser_1.default());
 app.use(cors_1.default());
@@ -28,7 +29,7 @@ app.use('/session', session_1.default);
 app.listen(PORT_1.default, () => {
     console.log('SERVER START ON PORT', PORT_1.default);
     setInterval(function () {
-        fetch("https://login-production.herokuapp.com")
+        node_fetch_1.default("https://login-production.herokuapp.com")
             .then((r) => {
             console.log('update');
         });
