@@ -23,7 +23,6 @@ function App({location}: { location: Location }) {
     let history = useHistory();
 
     useEffect(() => {
-        console.log(location.pathname, 'PATCH')
         const allowStartPatch = [ROUTES.START, ROUTES.LOG_IN, ROUTES.REG, ROUTES.CODE]
         const isAuth = !!localStorage.getItem('tokens')
         const isAllowStartPatch: boolean = allowStartPatch.some((route) => route === location.pathname)
