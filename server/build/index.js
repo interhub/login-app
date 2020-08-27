@@ -14,12 +14,14 @@ app.use(cookie_parser_1.default());
 app.use(cors_1.default());
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
-// let data= api.registration('89622639809')
-// console.log(data)
-// console.log(api.verifyUserByCode(data.code))
 app.get('*', (req, res) => {
     // console.log(database.getAll())
-    res.sendFile(process.cwd() + '/build' + req.url);
+    try {
+        res.sendFile(process.cwd() + '/build' + req.url);
+    }
+    catch (e) {
+        res.sendFile(process.cwd() + '/build/index.html');
+    }
 });
 app.use('/account/profile', profile_1.default);
 app.use('/session', session_1.default);

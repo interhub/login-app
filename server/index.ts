@@ -13,7 +13,11 @@ app.use(express.urlencoded({extended: true}))
 
 app.get('*', (req, res) => {
     // console.log(database.getAll())
-    res.sendFile(process.cwd() + '/build' + req.url)
+    try{
+        res.sendFile(process.cwd() + '/build' + req.url)
+    }catch (e) {
+        res.sendFile(process.cwd() + '/build/index.html')
+    }
 })
 
 app.use('/account/profile', profile_router)
