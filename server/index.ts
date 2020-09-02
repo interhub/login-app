@@ -5,6 +5,7 @@ import PORT from "./config/PORT";
 import profile_router from "./routes/profile";
 import session_router from "./routes/session";
 import fetch from "node-fetch";
+import path from 'path'
 
 const app = express()
 app.use(cookieParser())
@@ -15,19 +16,10 @@ app.use(express.urlencoded({extended: true}))
 app.use('/account/profile', profile_router)
 app.use('/session', session_router)
 
-app.get('*', (req, res) => {
-    // console.log(database.getAll())
-    const sendHTML = () => res.sendFile(process.cwd() + '/build/index.html')
+app.use(express.static( process.cwd()+'/build'));
 
-    try {
-        if  (req.url.includes('.js') || req.url.includes('.css')) {
-            res.sendFile(process.cwd() + '/build' + req.url)
-        } else {
-            sendHTML()
-        }
-    } catch (e) {
-        sendHTML()
-    }
+app.get('*', (req, res) => {
+     res.sendFile(process.cwd() + '/build/index.html')
 })
 
 

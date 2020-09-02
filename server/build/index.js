@@ -17,20 +17,9 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use('/account/profile', profile_1.default);
 app.use('/session', session_1.default);
+app.use(express_1.default.static(process.cwd() + '/build'));
 app.get('*', (req, res) => {
-    // console.log(database.getAll())
-    const sendHTML = () => res.sendFile(process.cwd() + '/build/index.html');
-    try {
-        if (req.url.includes('.js') || req.url.includes('.css')) {
-            res.sendFile(process.cwd() + '/build' + req.url);
-        }
-        else {
-            sendHTML();
-        }
-    }
-    catch (e) {
-        sendHTML();
-    }
+    res.sendFile(process.cwd() + '/build/index.html');
 });
 app.listen(PORT_1.default, () => {
     console.log('SERVER START ON PORT', PORT_1.default);
